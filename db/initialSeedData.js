@@ -1,6 +1,9 @@
 const { createUser } = require( "./users");
 const{createCar}=require("./cars")
-const client = require("./client")
+const{createRatings}=require('./ratings')
+const client = require("./client");
+const { createCart } = require("./cart");
+const{addItemsToCart}=require("./carttItems")
 
 
 
@@ -61,24 +64,24 @@ try{
 await client.query(`
     CREATE TABLE ratings (
       id SERIAL PRIMARY KEY,
-      userid integer,
-      vehicleid integer,
-      reviews varchar(255) NOT NULL,
+      userid integer REFERENCES users(id),
+      vehicleid integer REFERENCES cars(id),
+      review varchar(255) NOT NULL,
       stars integer
     );`)
     await client.query(`
     CREATE TABLE cart (
       id SERIAL PRIMARY KEY,
-      user_id integer,
-      total_price integer,
-      date_purchased integer,
+      user_id integer REFERENCES users(id),
+      total_price varchar(255),
+      date_purchased varchar(255),
       transactioncomplete boolean
     );`)
     await client.query(`
     CREATE TABLE cart_items (
       id SERIAL PRIMARY KEY,
-      cart_id integer,
-      vehicle_id integer,
+      cart_id integer REFERENCES cart(id),
+      vehicle_id integer REFERENCES cars(id),
       quantity integer DEFAULT 0
     );`)
 
@@ -108,19 +111,7 @@ async function createInitialUsers() {
       throw error;
     }
   }
-  async function rebuildDB() {
-    try {
-      client.connect();
-  
-      await dropTables();
-      await createTables();
-      await createInitialUsers();
-      await createInitialCars()
-    } catch (error) {
-      console.log("Error during rebuildDB")
-      throw error;
-    }
-  }
+
   async function createInitialCars(){
     console.log("started creating cars!")
     try{
@@ -162,6 +153,99 @@ async function createInitialUsers() {
 
     }catch(error){
       console.log(error,"error creating cars")
+    }
+  }
+  async function createInitalRatings(){
+    console.log("started created ratings!")
+    try{
+const ratingsToCreate = [
+  {
+    userid:1,
+    vehicleid:1,
+    review:'car drives amazing and is very reliable!',
+    stars:'5'
+  },
+  {
+    userid:2,
+    vehicleid:2,
+    review:'car is very slow and sluggish',
+    stars:3
+  }
+]
+const ratings = await Promise.all(ratingsToCreate.map(createRatings))
+console.log("finished created ratings!")
+    }catch(error){
+      console.log(error,"error creating ratings")
+    }
+  }
+  async function createInitialCart(){
+    console.log("started creating cart")
+    try{
+const cartToCreate = [
+  {
+    user_id:1,
+    total_price:'5000',
+    date_purchased:'01/01/2023',
+    transactioncomplete:true
+  },
+  {
+    user_id:2,
+    total_price:'1000',
+    date_purchased:'11/01/2022',
+    transactioncomplete:true
+  }
+]
+const cart = await Promise.all(cartToCreate.map(createCart))
+console.log("finished creating cart!")
+    }catch(error){
+      console.log(error,"error creating cart")
+    }
+  }
+  async function createInitialCartItems(){
+    console.log("started adding items to cart")
+    try{
+      const cartItemsToAdd = [
+        {
+          cart_id:1,
+          vehicle_id:2,
+          quantity:5
+        },
+        {
+          cart_id:1,
+          vehicle_id:1,
+          quantity:1
+        },
+        {
+          cart_id:2,
+          vehicle_id:2,
+          quantity:3
+        },
+        {
+          cart_id:2,
+          vehicle_id:1,
+          quantity:10
+        }
+      ]
+      const cartItems = await Promise.all(cartItemsToAdd.map(addItemsToCart))
+console.log("finished adding items to cart!")
+    }catch(error){
+      console.log(error,"error adding items to cart")
+    }
+  }
+  async function rebuildDB() {
+    try {
+      client.connect();
+  
+      await dropTables();
+      await createTables();
+      await createInitialUsers();
+      await createInitialCars()
+      await createInitalRatings()
+      await createInitialCart()
+      await createInitialCartItems()
+    } catch (error) {
+      console.log("Error during rebuildDB")
+      throw error;
     }
   }
   // async function testDB() {
