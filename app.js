@@ -10,6 +10,7 @@ const server = express();
 
 server.use(morgan("dev"));
 server.use(express.json());
+server.use(cors())
 
 const apiRouter = require("./api");
 server.use("/api", apiRouter);

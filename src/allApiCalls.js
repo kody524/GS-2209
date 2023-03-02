@@ -8,7 +8,9 @@ export async function getAllCars(setCars){
       }
       
       );
+      
       const data = await response.json();
+      console.log(data)
       setCars(data)
     }catch(error){
         console.log(error,"error getting cars")
