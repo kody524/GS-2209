@@ -73,7 +73,6 @@ await client.query(`
     CREATE TABLE cart (
       id SERIAL PRIMARY KEY,
       user_id integer REFERENCES users(id),
-      total_price varchar(255),
       date_purchased varchar(255),
       transactioncomplete BOOLEAN DEFAULT FALSE
     );`)
