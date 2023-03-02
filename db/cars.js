@@ -1,4 +1,4 @@
-
+const client = require("./client")
 async function createCar({make,model,year,price,inventory,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description}){
 try{
 const{rows:[car]}= await client.query(`

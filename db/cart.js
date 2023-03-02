@@ -1,4 +1,6 @@
 
+const client = require("./client")
+
 async function createCart({user_id,total_price,date_purchased,transactioncomplete}){
     try{
 const{rows:[cart]}= await client.query(`

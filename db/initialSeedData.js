@@ -3,7 +3,7 @@ const{createCar}=require("./cars")
 const{createRatings}=require('./ratings')
 const client = require("./client");
 const { createCart } = require("./cart");
-const{addItemsToCart}=require("./carttItems")
+const{addItemsToCart}=require("./cartItems")
 
 
 
