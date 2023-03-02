@@ -1,5 +1,5 @@
 const dotenv = require("dotenv").config();
-const PORT = 3000;
+const PORT = 8080;
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors")

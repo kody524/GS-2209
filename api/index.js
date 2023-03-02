@@ -21,6 +21,9 @@ router.use('/cart',cartRouter)
 //Router:ratings
 const ratingsRouter = require('./ratings')
 router.use('/ratings',ratingsRouter)
+//Router:cartitems
+const cartItemsRouter = require('./cartItems')
+router.use('/cartitems',cartItemsRouter)
 
 module.exports = 
     router

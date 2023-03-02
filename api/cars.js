@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const{getAllCars}=require('../db/cars')
+const{getAllCars,createCar,updateCars,getCarsById}=require('../db/cars')
 
 
 //get all cars
@@ -59,7 +59,7 @@ router.patch('/:carId',async(req,res,next)=>{
             message:"No car found with that ID"
         })
     }else{
-        const updatedCar = await updateCar({make,model,year,price,inventory,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description})
+        const updatedCar = await updateCars({make,model,year,price,inventory,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description})
         res.send(updatedCar)
     }
 }catch({name,message}){
