@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const{getAllCars}=require('../db/cars')
 
 
 //get all cars
