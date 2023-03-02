@@ -1,6 +1,6 @@
 export async function getAllCars(setCars){
     try{
-      const response = await fetch('http://localhost:3000/api/cars',
+      const response = await fetch('http://localhost:8080/api/cars',
       {
         headers:{
             "Content-Type": "application/json",

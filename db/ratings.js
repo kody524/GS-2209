@@ -40,6 +40,18 @@ async function getRatingsByCar(id) {
   }
 }
 
+async function getRatingById(id){
+  try{
+const{rows:rating}= await client.query(`
+SELECT * FROM ratings
+WHERE id=$1
+`,[id])
+return rating;
+  }catch(error){
+    throw error
+  }
+}
+
 async function deleteRating(id) {
   try {
       const { rows: [ rating ] } = await client.query(`
@@ -56,5 +68,6 @@ async function deleteRating(id) {
     createRatings,
     getRatingsByCar,
     getRatingsByUser,
+    getRatingById,
     deleteRating
   }
