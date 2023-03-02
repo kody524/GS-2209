@@ -6,20 +6,21 @@ const bcrypt = require('bcrypt')
 // database functions
 
 // user functions
-async function createUser({ username, password }) {
-  try{
-   const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
-   const { rows:[user] } = await client.query(`
-    INSERT INTO users(username,password)
-    VALUES($1,$2)
-    RETURNING *;
-    `,[username,hashedPassword]);
-    delete user.password;
-    return user;
-    
-  }catch(error){
-    throw Error('failed to create user')}
-}
+async function createUser({ username, password, email, firstname, lastname, street, city, state, zip, phone, isadmin }) {
+    try{
+     const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
+     const { rows:[user] } = await client.query(`
+      INSERT INTO users(username,password, email, firstname, lastname, street, city, state, zip, phone, isadmin)
+      VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+      RETURNING *;
+      `,[username,hashedPassword, email, firstname, lastname, street, city, state, zip, phone, isadmin]);
+      delete user.password;
+      return user;
+      
+    }catch(error){
+      throw Error('failed to create user')}
+  }
+  
 
 
 
