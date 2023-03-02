@@ -42,7 +42,7 @@ try{
       state varchar(255) NOT NULL,
       zip varchar(255) UNIQUE NOT NULL,
       phone varchar(255) UNIQUE NOT NULL,
-      isadmin boolean
+      isadmin BOOLEAN DEFAULT FALSE
     );`)
     await client.query(`
     CREATE TABLE cars (
@@ -50,7 +50,7 @@ try{
       make varchar(255) NOT NULL,
       model varchar(255) NOT NULL,
       year integer,
-      price integer,
+      price DECIMAL(10, 2) NOT NULL,
       inventory integer,
       condition varchar(255) NOT NULL,
       engine varchar(255) NOT NULL,
@@ -73,9 +73,8 @@ await client.query(`
     CREATE TABLE cart (
       id SERIAL PRIMARY KEY,
       user_id integer REFERENCES users(id),
-      total_price varchar(255),
       date_purchased varchar(255),
-      transactioncomplete boolean
+      transactioncomplete BOOLEAN DEFAULT FALSE
     );`)
     await client.query(`
     CREATE TABLE cart_items (
