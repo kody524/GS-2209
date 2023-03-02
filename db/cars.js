@@ -49,7 +49,7 @@ RETURNING *
 async function getAllCars() {
   try {
     const { rows } = await client.query(`
-        SELECT * FROM cars;`);
+        SELECT * FROM cars`);
     return rows;
   } catch (error) {
     throw error;
@@ -69,53 +69,32 @@ async function getCarsById(id) {
     throw error;
   }
 }
-async function updateCars({ id, ...fields }) {
+async function updateCars(id, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}" = $${index + 1}`)
+    .join(", ");
+  if (setString.length === 0) {
+    return;
+  }
   try {
-    let { name, description } = fields;
-    if (!name) {
-      const {
-        rows: [cars],
-      } = await client.query(
-        `
-        UPDATE cars
-        SET description=$1
-        WHERE id=${id}
-        RETURNING *
-        `,
-        [description]
-      );
-      return cars;
-    } else if (!description) {
-      const {
-        rows: [cars],
-      } = await client.query(
-        `
-        UPDATE cars
-        SET name=$1
-        WHERE id=${id}
-        RETURNING *
-        `,
-        [name]
-      );
-      return cars;
-    } else {
-      const {
-        rows: [cars],
-      } = await client.query(
-        `
-          UPDATE cars
-          SET name=$1,description=$2
-          WHERE id=${id}
-          RETURNING *
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+            UPDATE cars
+            SET ${setString}
+            WHERE id=${id}
+            RETURNING *;
           `,
-        [name, description]
-      );
-      return cars;
-    }
+      Object.values(fields)
+    );
+
+    return user;
   } catch (error) {
     throw error;
   }
 }
+
 async function deleteCars(id) {
   try {
     await client.query(
