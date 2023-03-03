@@ -120,5 +120,9 @@ async function deleteCars(id) {
   }
 }
 module.exports = {
-    createCar
+    createCar,
+    getAllCars,
+    getCarsById,
+    updateCars,
+    deleteCars
 }
