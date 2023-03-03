@@ -121,4 +121,5 @@ module.exports = {
   getUser,
   getUserById,
   getUserByUsername,
+  updateUsersInfo
 }
