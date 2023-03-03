@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 
+
 router.get('/:userId',async(req,res,next)=>{
     const {userId}=req.params;
     const getUser = await getUserById(userId)
