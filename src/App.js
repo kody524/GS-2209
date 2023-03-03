@@ -2,9 +2,10 @@ import { Cars } from './Cars';
 import './App.css';
 
 function App() {
-  return (
+  return (<>
     <Cars/>
- 
+    <h1>Went to break</h1>
+ </>
   );
 }
 

@@ -183,11 +183,11 @@ console.log("finished created ratings!")
 const cartToCreate = [
   {
     user_id:1,
-    date_purchased:'01/01/2023',
+    transactioncomplete:false
   },
   {
     user_id:2,
-    date_purchased:'11/01/2022',
+    transactioncomplete:false
   }
 ]
 const cart = await Promise.all(cartToCreate.map(createCart))
