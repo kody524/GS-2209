@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require('jsonwebtoken')
+const{getUserById}=require('../db/users')
+const{getCartsByUser,deleteCart}=require('../db/cart')
 
 
 
@@ -8,7 +11,7 @@ router.get('/:userId',async(req,res,next)=>{
     const getUser = await getUserById(userId)
    try{
     if(getUser){
-        const getCart = await getCartByUserId(userId)
+        const getCart = await getCartsByUser(userId)
         if(getCart){
             res.send(getCart)
         }else{
@@ -26,7 +29,7 @@ router.get('/:userId',async(req,res,next)=>{
 })
 router.delete('/:userId',async(req,res,next)=>{
     const{userId}=req.params;
-    const getCart = await getCartByUserId(userId);
+    const getCart = await getCartsByUser(userId);
     try{
         if(req.headers.authorization){
             const usertoken = req.headers.authorization;
@@ -35,7 +38,7 @@ router.delete('/:userId',async(req,res,next)=>{
             const username= decoded.username
             const decodedId = decoded.id
             if(userId===decodedId){
-                const deleteCart = await deleteCartByUserId(userId)
+                const deletedCart = await deleteCart(getCartsByUser.id)
                 res.send({
                     message:"deleted cart",deleteCart
                 })

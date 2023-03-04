@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const{getAllCars,createCar,updateCars,getCarsById}=require('../db/cars')
+const{getAllCars,createCar,updateCars,getCarsById,deleteCars}=require('../db/cars')
 
 
 //get all cars
@@ -77,7 +77,7 @@ if(!originalCar){
         message:"No car found with that ID"
     })
 }else{
-    const deleteCar = await deleteCar(carId);
+    const deleteCar = await deleteCars(carId);
     res.send({
         message:"Car deleted",
         car:deleteCar

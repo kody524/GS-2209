@@ -1,5 +1,6 @@
 const express = require("express");
-const { getRatingsByUser, getRatingsByCar,getRatingById, deleteRating } = require("../db/ratings");
+const { getRatingsByUser, getRatingsByCar,getRatingById } = require("../db/ratings");
+const{getUserById}=require('../db/users')
 const jwt = require("jsonwebtoken");
 const router = express.Router()
 
