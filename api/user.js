@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const {createUser,getUser,getUserById,getUserByUsername,updateUsersInfo,deleteAccount}=require('../db/users')
 
 
 router.post('/register',async(req,res,next)=>{
@@ -92,7 +93,7 @@ router.delete('/me',async(req,res,next)=>{
             const token = split[1];
             const verified = jwt.verify(token,"luxury")
            if(username===verified.username&&password===verified.password){
-            const deleteAccount = await deleteUserAccountByUserId(verified.id)
+            const deleteAccount = await deleteAccount(verified.id)
             res.send({
                 message:"Account deleted"
             })

@@ -78,7 +78,6 @@ await client.query(`
     );`)
     await client.query(`
     CREATE TABLE cart_items (
-      id SERIAL PRIMARY KEY,
       cart_id integer REFERENCES cart(id),
       vehicle_id integer REFERENCES cars(id),
       quantity integer DEFAULT 0

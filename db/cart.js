@@ -1,4 +1,5 @@
 const client = require("./client")
+const{getCartItemsByCartId}=require('./carttItems')
 
 async function createCart({user_id,transactioncomplete}){
     try{
@@ -31,7 +32,7 @@ async function getCartsByUser(userId) {
             FROM carts
             WHERE user_id = $1;
         `, [userId]);
-        return carts;
+        return getCartItemsByCartId(carts.id)
     } catch (error) {
         throw error;
     }
@@ -39,8 +40,9 @@ async function getCartsByUser(userId) {
 async function getAllCarts() {
     try {
         const {rows: [carts]} = await client.query(`
-            SELECT *
-            FROM cart
+        SELECT cart_items.cart_id,cart_items.quantity,cars.make,cars.model, cars.price
+        FROM cart_items JOIN cars ON cars.id=cart_items.vehicle_id
+        JOIN cart ON cart.id=cart_items.cart_id
         `);
        
         return carts;
@@ -64,5 +66,7 @@ async function deleteCart(cartId) {
 module.exports={
     createCart,
     updateCart,
+    getAllCarts,
+    getCartsByUser,
     deleteCart
 }
