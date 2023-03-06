@@ -113,7 +113,7 @@ async function updateUsersInfo(id, fields = {}) {
       throw error;
     }
   }
-
+//deleteuser and can only be deleted when logged in. 
 
 
 module.exports = {
