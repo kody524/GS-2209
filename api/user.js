@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const {createUser,getUser,getUserById,getUserByUsername,updateUsersInfo,deleteAccount}=require('../db/users')
+const {createUser,getUser,getUserById,getUserByUsername,updateUsersInfo, deleteAccount}=require('../db/users')
+const{getRatingsByUser}=require('../db/ratings')
 
 
 router.post('/register',async(req,res,next)=>{
@@ -30,7 +31,7 @@ if(password.length<8){
         const user = await createUser({ username, password,email,firstname,lastname,street,city,state,zip,phone})
 
         const token = jwt.sign({id:user.id,username,},"luxury")
-        res.send({message:"Thanks for registering",token,user})
+        res.send({success:true,message:"Thanks for registering",token,user})
     }catch({name,message}){
        next({name,message})
     }
@@ -71,9 +72,10 @@ if(req.headers.authorization){
     const split = usertoken.split(' ');
     const token = split[1];
     const verified = jwt.verify(token,"luxury")
-    res.send({
-        id:verified.id,username:verified.username
-    })
+    const getUser = await getUserById(verified.id)
+    const getRatings = await getRatingsByUser(verified.id)
+    console.log(getUser)
+    res.send({getUser,getRatings})
 }else{
     res.status(401)
     res.send({
@@ -84,6 +86,29 @@ if(req.headers.authorization){
         next({name,message})
     }
 })
+router.patch('/me',async(req,res,next)=>{
+    try{
+        if(req.headers.authorization){
+            const usertoken = req.headers.authorization
+            const split = usertoken.split(' ');
+            const token = split[1];
+            const verified = jwt.verify(token,"luxury")
+            const updateInfo = await updateUsersInfo(verified.id,req.body)
+            res.send({message:"Info updated",updateInfo})
+        }else{
+            res.status(401)
+            res.send({
+                error:"UnauthorizedError",name:"401",message:"You're not authorized for access"
+            })
+        }
+    }catch({name,message}){
+        next({name,message})
+    }
+})
+
+
+
+
 router.delete('/me',async(req,res,next)=>{
     const {username,password}=req.body;
     try{
@@ -93,7 +118,7 @@ router.delete('/me',async(req,res,next)=>{
             const token = split[1];
             const verified = jwt.verify(token,"luxury")
            if(username===verified.username&&password===verified.password){
-            const deleteAccount = await deleteAccount(verified.id)
+            const deletedAccount = await deleteAccount(verified.id)
             res.send({
                 message:"Account deleted"
             })

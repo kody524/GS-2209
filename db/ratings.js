@@ -15,10 +15,10 @@ async function createRatings({userid,vehicleid,review,stars}){
 
 async function getRatingsByUser(id) {
     try {
-        const {rows: ratings} = await client.query(`
+        const {rows: [ratings]} = await client.query(`
         SELECT *
         FROM ratings
-        WHERE "userId" = $1;
+        WHERE userId = $1;
         `, [id]);
         return ratings;  
     } catch (error) {

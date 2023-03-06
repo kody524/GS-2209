@@ -18,7 +18,7 @@ router.post('/',async(req,res,next)=>{
     try{
 const create = await createCar({make,model,year,price,inventory,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description})
 if(create){
-    res.send(create)
+    res.send({message:"Car Created",create})
 }else{
     res.send({
         name:"ErrorCreatingCar",
@@ -51,6 +51,7 @@ router.get('/:carId',async(req,res,next)=>{
 router.patch('/:carId',async(req,res,next)=>{
     const { carId }=req.params;
     const {make,model,year,price,inventory,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description}=req.body;
+    console.log(req.body)
     try{
     const originalCar = await getCarsById(carId);
     if(!originalCar){
@@ -59,8 +60,8 @@ router.patch('/:carId',async(req,res,next)=>{
             message:"No car found with that ID"
         })
     }else{
-        const updatedCar = await updateCars({make,model,year,price,inventory,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description})
-        res.send(updatedCar)
+        const updatedCar = await updateCars(carId,req.body)
+        res.send({message:"updated car successful",updatedCar})
     }
 }catch({name,message}){
     next({name,message})
