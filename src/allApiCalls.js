@@ -1,6 +1,6 @@
-import { token } from "morgan";
 
-export async function register(username,password,email,firstname,lastname,street,city,state,zip,phone){
+
+  async function register (username,password,email,firstname,lastname,street,city,state,zip,phone){
 try{
 const response = await fetch('http://localhost:8080/api/users/register',{
   method:"POST",
@@ -30,7 +30,7 @@ if (data.success) {
   console.log(e,"register error")
 }
 }
-export async function login(username,password){
+ async function login(username,password){
   try{
 const response = await fetch("http://localhost:8080/api/users/login",
 {
@@ -58,7 +58,7 @@ if (json.message !== "you're logged in!") {
 }
 
 
-export async function getMe(token){
+ async function getMe(token){
   try{
 const response = await fetch('http://localhost:8080/api/users/me',
 {
@@ -74,7 +74,7 @@ const data = await response.json();
     console.log(e,"error getting profile")
   }
 }
-export async function editUser(token,username, password, email, firstname, lastname, street, city, state, zip, phone){
+ async function editUser(token,username, password, email, firstname, lastname, street, city, state, zip, phone){
   try{
 const data = await fetch("http://localhost:8080/api/users/me",
 {
@@ -101,7 +101,7 @@ const response = await data.json()
     console.log(e,"error updating info")
   }
 }
-export async function deleteUser(token){
+ async function deleteUser(token){
   try{
 const response = await fetch("http://localhost:8080/api/users/me",
 {
@@ -117,7 +117,7 @@ alert(data.message)
     console.log(e,"error deleting profile")
   }
 }
-export async function getAllCars(setCars){
+ async function getAllCars(setCars){
   try{
     const response = await fetch('http://localhost:8080/api/cars',
     {
@@ -133,7 +133,7 @@ export async function getAllCars(setCars){
       console.log(error,"error getting cars")
   }
 }
-export async function getSingleCar(carId){
+ async function getSingleCar(carId){
   try{
 const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
 {
@@ -146,7 +146,7 @@ const response = await data.json()
     console.log(e,"error getting car")
   }
 }
-export async function addCar(  make,
+ async function addCar(  make,
   model,
   year,
   price,
@@ -188,7 +188,7 @@ alert(response.message)
     console.log(e,"error creating car")
   }
 }
-export async function editCar(carId,make,
+ async function editCar(carId,make,
   model,
   year,
   price,
@@ -231,7 +231,7 @@ const response = await data.json();
     console.log(e,"error updating car ")
   }
 }
-export async function deleteCar(carId){
+ async function deleteCar(carId){
   try{
 const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
 {
@@ -245,7 +245,7 @@ const response = await data.json()
     console.log(e,"error deleting car")
   }
 }
-export async function getCart(userId){
+ async function getCart(userId){
 try{
 const data = await fetch(`http://localhost:8080/api/cart/${userId}`,
 {
@@ -258,7 +258,7 @@ const response = await data.json()
   console.log(e,"error getting cart")
 }
 }
-export async function updateCart(userId,date_purchased,transactioncomplete){
+ async function updateCart(userId,date_purchased,transactioncomplete){
   try{
 const data = await fetch(`http://localhost:8080/api/cart/${userId}`,
 {
@@ -275,7 +275,7 @@ transactioncomplete:transactioncomplete
     console.log(e,"error updating cart")
   }
 }
-export async function deleteCart(cartId){
+ async function deleteCart(cartId){
   try{
 const data = await fetch(`http://localhost:8080/api/cart/${cartId}`,
 {
@@ -289,7 +289,7 @@ const response = await data.json();
     console.log(e,"error deleting cart")
   }
 }
-export async function updateCartItems(cartItemId,quantity){
+ async function updateCartItems(cartItemId,quantity){
   try{
 const data = await fetch(`http://localhost:8080/api/cart/${cartItemId}`,
 {
@@ -306,7 +306,7 @@ const response = await data.json()
     console.log(e,"error updating cart items")
   }
 }
-export async function deleteCartItem(cartItemId){
+ async function deleteCartItem(cartItemId){
   try{
 const data = await fetch(`http://localhost:8080/api/cart/${cartItemId}`,
 {
@@ -319,4 +319,22 @@ const response = await data.json();
   }catch(e){
     console.log(e,"error deleting cart item")
   }
+}
+
+module.exports={
+  register,
+  login,
+  getMe,
+  editUser,
+  deleteUser,
+  getAllCars,
+  getSingleCar,
+addCar,
+editCar,
+deleteCar,
+getCart,
+updateCart,
+deleteCart,
+updateCartItems,
+deleteCartItem
 }

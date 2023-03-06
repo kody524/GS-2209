@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const jwt = require('jsonwebtoken')
 const{getUserById}=require('../db/users')
-const{getCartsByUser,deleteCart}=require('../db/cart');
-const { updateCart } = require("../src/allApiCalls");
+const{getCartsByUser,deleteCart,updateCart}=require('../db/cart');
+
 
 
 
