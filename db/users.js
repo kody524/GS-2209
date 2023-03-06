@@ -60,8 +60,8 @@ async function getUserById(userId) {
     const { rows: [userById] } = await client.query(`
     SELECT * 
     from users 
-    WHERE id=${userId}
-    `)
+    WHERE id=$1
+    `,[userId])
   //  console.log(userById)
     delete userById.password
     return userById;
@@ -113,7 +113,7 @@ async function updateUsersInfo(id, fields = {}) {
       throw error;
     }
   }
-export async function deleteAccount(id){
+async function deleteAccount(id){
     try{
 const {rows:user}= await client.query(`
 DELETE FROM users

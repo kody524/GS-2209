@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const jwt = require('jsonwebtoken')
 const{getUserById}=require('../db/users')
-const{getCartsByUser,deleteCart}=require('../db/cart')
+const{getCartsByUser,deleteCart}=require('../db/cart');
+const { updateCart } = require("../src/allApiCalls");
 
 
 
@@ -10,8 +11,9 @@ router.get('/:userId',async(req,res,next)=>{
     const {userId}=req.params;
     const getUser = await getUserById(userId)
    try{
-    if(getUser){
+    if(getUser.id){
         const getCart = await getCartsByUser(userId)
+        console.log(getCart)
         if(getCart){
             res.send(getCart)
         }else{
@@ -27,6 +29,29 @@ router.get('/:userId',async(req,res,next)=>{
     next({name,message})
    }
 })
+router.patch('/:userId',async(req,res,next)=>{
+    const{userId}=req.params;
+    try{
+        if(req.headers.authorization){
+            const usertoken = req.headers.authorization;
+            const token = usertoken.split(' ');
+            const decoded = jwt.verify(token[1], "luxury")
+            if(decoded.id===userId){
+                const getCartId = await getCartsByUser(userId)
+                const update = await updateCart(getCartId.id,req.body)
+                res.send({message:"cart updated",update})
+            }
+            }else{
+                res.send({
+                    name:"NotAuthorized",
+                    message:"you cannot delete carts that are not yours"
+                })
+            }
+    }catch({name,message}){
+        next({name,message})
+    }
+})
+
 router.delete('/:userId',async(req,res,next)=>{
     const{userId}=req.params;
     const getCart = await getCartsByUser(userId);
@@ -40,7 +65,7 @@ router.delete('/:userId',async(req,res,next)=>{
             if(userId===decodedId){
                 const deletedCart = await deleteCart(getCartsByUser.id)
                 res.send({
-                    message:"deleted cart",deleteCart
+                    message:"deleted cart",deletedCart
                 })
             }else{
                 res.send({

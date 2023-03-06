@@ -49,7 +49,9 @@ RETURNING *
 async function getAllCars() {
   try {
     const { rows } = await client.query(`
-        SELECT * FROM cars`);
+    SELECT cars.*,ratings.review,ratings.stars,ratings.userid
+    FROM cars JOIN ratings ON ratings.vehicleid=cars.id`
+        );
     return rows;
   } catch (error) {
     throw error;
@@ -97,13 +99,7 @@ async function updateCars(id, fields = {}) {
 
 async function deleteCars(id) {
   try {
-    await client.query(
-      `
-          DELETE FROM cars
-          WHERE "routineId" = $1;
-          `,
-      [id]
-    );
+  
     const { rows: cars } = await client.query(
       `
           DELETE FROM cars
