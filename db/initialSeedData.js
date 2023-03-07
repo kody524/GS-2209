@@ -78,7 +78,6 @@ await client.query(`
     );`)
     await client.query(`
     CREATE TABLE cart_items (
-      id SERIAL PRIMARY KEY,
       cart_id integer REFERENCES cart(id),
       vehicle_id integer REFERENCES cars(id),
       quantity integer DEFAULT 0
@@ -183,15 +182,11 @@ console.log("finished created ratings!")
 const cartToCreate = [
   {
     user_id:1,
-    total_price:'5000',
-    date_purchased:'01/01/2023',
-    transactioncomplete:true
+    transactioncomplete:false
   },
   {
     user_id:2,
-    total_price:'1000',
-    date_purchased:'11/01/2022',
-    transactioncomplete:true
+    transactioncomplete:false
   }
 ]
 const cart = await Promise.all(cartToCreate.map(createCart))
