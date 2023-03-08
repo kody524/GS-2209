@@ -6,20 +6,26 @@ const bcrypt = require('bcrypt')
 // database functions
 
 // user functions
-async function createUser({ username, password, email, firstname, lastname, street, city, state, zip, phone, isadmin }) {
+async function createUser({ username, password, email, firstname, lastname, street, city, state, zip, phone,isadmin}) {
+ 
     try{
      const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
+     
      const { rows:[user] } = await client.query(`
-      INSERT INTO users(username,password, email, firstname, lastname, street, city, state, zip, phone, isadmin)
-      VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+      INSERT INTO users(username,password, email, firstname, lastname, street, city, state, zip, phone,isadmin)
+      VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10,$11)
       RETURNING *;
-      `,[username,hashedPassword, email, firstname, lastname, street, city, state, zip, phone, isadmin]);
-      delete user.password;
+      `,[username,hashedPassword, email, firstname, lastname, street, city, state, zip, phone,isadmin]);
+
+     delete user.password
       return user;
       
     }catch(error){
-      throw Error('failed to create user')}
+      console.log(error, 'failed to create user')
   }
+
+
+}
   
 
 
@@ -85,8 +91,20 @@ async function getUserByUsername(userName) {
     
     throw Error('Failed to get User')
   }
-
 }
+
+  async function getUserByEmail(email){
+    try{
+const {rows:[user]}= await client.query(`
+SELECT * FROM users
+WHERE email=$1
+`,[email])
+return user
+    }catch(error){
+      console.log(error)
+    }
+  }
+
 
 async function updateUsersInfo(id, fields = {}) {
     const setString = Object.keys(fields)
@@ -133,5 +151,6 @@ module.exports = {
   getUserById,
   getUserByUsername,
   updateUsersInfo,
-  deleteAccount
+  deleteAccount,
+  getUserByEmail,
 }

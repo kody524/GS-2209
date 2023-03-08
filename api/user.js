@@ -1,21 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const {createUser,getUser,getUserById,getUserByUsername,updateUsersInfo, deleteAccount}=require('../db/users')
+const {createUser,getUserByEmail,getUserById,getUserByUsername,updateUsersInfo, deleteAccount}=require('../db/users')
 const{getRatingsByUser}=require('../db/ratings')
 
 
 router.post('/register',async(req,res,next)=>{
     const { username, password,email,firstname,lastname,street,city,state,zip,phone}=req.body;
+    console.log("1",firstname,"2",lastname)
     try{
-const _user = await getUserByUsername(username);
+const _user = await getUserByUsername(username)
+const _user1 = await getUserByEmail(email)
 if(!username || !password){
+
     next({
         name:"MissingRequiredInfoError",
         message:"Please fill in the username and password",
     })
 }
 if(password.length<8){
+
     res.send({
         name:"PasswordTooShortError",
         message:"Password needs to be longer than 8 characters",
@@ -23,15 +27,22 @@ if(password.length<8){
 }
         if(_user){
             res.send({
-                error:`Username ${_user} already exists`,
+                error:`Username ${_user.username} already exists`,
                 message:"Username is already taken",
                 name:"UserAlreadyExistsError"
             })
         }
-        const user = await createUser({ username, password,email,firstname,lastname,street,city,state,zip,phone})
+        if(_user1){
+            res.send({
+                error:`User already exists with that email`,
+                message:"Email is used by another account",
+                name:"EmailAlreadyExistsError"
+            })
+        }
+        const user =  await createUser(req.body)
 
         const token = jwt.sign({id:user.id,username,},"luxury")
-        res.send({success:true,message:"Thanks for registering",token,user})
+        res.send({message:"Thanks for signing up!",id:user.id,username:user.username,token})
     }catch({name,message}){
        next({name,message})
     }
