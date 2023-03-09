@@ -1,6 +1,5 @@
 const client = require("./client");
-const SALT_COUNT = 10;
-const bcrypt = require('bcrypt')
+
 
 
 // database functions
@@ -9,13 +8,13 @@ const bcrypt = require('bcrypt')
 async function createUser({ username, password, email, firstname, lastname, street, city, state, zip, phone,isadmin}) {
  
     try{
-     const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
+    
      
      const { rows:[user] } = await client.query(`
       INSERT INTO users(username,password, email, firstname, lastname, street, city, state, zip, phone,isadmin)
       VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10,$11)
       RETURNING *;
-      `,[username,hashedPassword, email, firstname, lastname, street, city, state, zip, phone,isadmin]);
+      `,[username,password, email, firstname, lastname, street, city, state, zip, phone,isadmin]);
 
      delete user.password
       return user;
@@ -30,36 +29,11 @@ async function createUser({ username, password, email, firstname, lastname, stre
 
 
 
-async function getUser({ username, password }) {
-  try{
-    const user = await getUserByUsername(username);
-    const hashedPassword = user.password;
-    const isValid = await bcrypt.compare(password, hashedPassword)
 
-    const { rows: [getUsers]  } = await client.query(`
-    SELECT *
-    FROM users
-    WHERE username =$1 
-    `,[username])
-
-   // console.log(isValid)
-    if(isValid){
-      console.log(getUsers)
-      delete getUsers.password;
-      return getUsers;
-    }else{
-      return false;
-     // throw Error('Password doesnt verify')
-    }
-
-
-  }catch(error){
-    throw Error(error)
-  }
 
   
 
-}
+
 
 async function getUserById(userId) {
   try{
@@ -79,17 +53,18 @@ async function getUserById(userId) {
 }
 
 async function getUserByUsername(userName) {
+  console.log(userName)
   try{
     const { rows: [user]} = await client.query(`
     SELECT * 
     from users 
     WHERE username=$1
     `,[userName])
-  //  console.log(user)
+
     return user;
   }catch(error){
     
-    throw Error('Failed to get User')
+    console.log(error)
   }
 }
 
@@ -147,7 +122,6 @@ return user
 
 module.exports = {
   createUser,
-  getUser,
   getUserById,
   getUserByUsername,
   updateUsersInfo,
