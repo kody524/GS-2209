@@ -35,13 +35,13 @@ try{
       username varchar(255) UNIQUE NOT NULL,
       password varchar(255) NOT NULL,
       email varchar(255) UNIQUE NOT NULL,
-      firstname varchar(255) NOT NULL,
+      firstname varchar(255)  NOT NULL,
       lastname varchar(255) NOT NULL,
       street varchar(255) NOT NULL,
       city varchar(255) NOT NULL,
       state varchar(255) NOT NULL,
-      zip varchar(255) UNIQUE NOT NULL,
-      phone varchar(255) UNIQUE NOT NULL,
+      zip varchar(255)  NOT NULL,
+      phone varchar(255)  NOT NULL,
       isadmin BOOLEAN DEFAULT FALSE
     );`)
     await client.query(`
