@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const {createUser,getUserByEmail,getUserById,getUserByUsername,updateUsersInfo, deleteAccount}=require('../db/users')
+const {createUser,getUserByEmail,getUser,getUserById,getUserByUsername,updateUsersInfo, deleteAccount}=require('../db/users')
 const{getRatingsByUser}=require('../db/ratings')
 
 
@@ -41,13 +41,14 @@ if(password.length<8){
         }
         const user =  await createUser(req.body)
 
-        const token = jwt.sign({id:user.id,username,},"luxury")
-        res.send({message:"Thanks for signing up!",id:user.id,username:user.username,token})
+
+        res.send({message:"Thanks for signing up!",id:user.id,username:user.username})
     }catch({name,message}){
        next({name,message})
     }
 })
 router.post('/login',async(req,res,next)=>{
+    console.log(req.body)
     const { username, password }=req.body;
     const message = "you're logged in!";
     //needs username and password 
@@ -59,14 +60,15 @@ router.post('/login',async(req,res,next)=>{
     }
     try{
         const user =  await getUserByUsername(username)
+        console.log(user)
         if(user&&user.password===password){
             const token = jwt.sign({
                 id:user.id,
                 username:user.username
             },"luxury");
-            res.send({user,message,token});
+            res.send({user:user.id,username:user.username,token});
         }else{
-            next({
+            res.send({
                 name:"IncorrectCredentialsError",
                 message:"Username or Password is incorrect"
             })
