@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const {createUser,getUserByEmail,getUser,getUserById,getUserByUsername,updateUsersInfo, deleteAccount}=require('../db/users')
 const{getRatingsByUser}=require('../db/ratings')
@@ -13,7 +14,7 @@ const _user = await getUserByUsername(username)
 const _user1 = await getUserByEmail(email)
 if(!username || !password){
 
-    next({
+    res.send({
         name:"MissingRequiredInfoError",
         message:"Please fill in the username and password",
     })
@@ -39,7 +40,10 @@ if(password.length<8){
                 name:"EmailAlreadyExistsError"
             })
         }
-        const user =  await createUser(req.body)
+        const hashedPassword = await bcrypt.hash(password,10)
+        console.log(hashedPassword)
+        console.log(username, hashedPassword,email,firstname,lastname,street,city,state,zip,phone)
+        const user =  await createUser({username, hashedPassword,email,firstname,lastname,street,city,state,zip,phone})
 
 
         res.send({message:"Thanks for signing up!",id:user.id,username:user.username})
@@ -53,20 +57,22 @@ router.post('/login',async(req,res,next)=>{
     const message = "you're logged in!";
     //needs username and password 
     if(!username || !password ){
-        next({
+        res.send({
             name:"MissingCredentilasError",
             message:"Please supply both username and password"
         })
     }
     try{
         const user =  await getUserByUsername(username)
-        console.log(user)
-        if(user&&user.password===password){
+        const isValid = await bcrypt.compare(password,user.password)
+
+        if(user&&isValid){
             const token = jwt.sign({
+            
                 id:user.id,
                 username:user.username
             },"luxury");
-            res.send({user:user.id,username:user.username,token});
+            res.send({message:"Successful Login",user:user.id,username:user.username,token});
         }else{
             res.send({
                 name:"IncorrectCredentialsError",

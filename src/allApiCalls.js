@@ -22,17 +22,13 @@ const response = await fetch('http://localhost:8080/api/users/register',{
   })
 })
 const data = await response.json()
-if(data.message==="Thanks for signing up!"){
-  alert(data.message)
-}else{
-  alert(data.message)
-}
+alert(data.message)
 
 }catch(e){
   console.log(e,"register error")
 }
 }
- async function login(username,password){
+ async function login(username,password,setSuccess){
   try{
 const response = await fetch("http://localhost:8080/api/users/login",
 {
@@ -47,11 +43,14 @@ const response = await fetch("http://localhost:8080/api/users/login",
 }
 )
 const json = await response.json()
-if (json.message !== "you're logged in!") {
+console.log(json)
+if (json.message === "Successful Login") {
   alert(json.message);
-} else {
+  setSuccess(true)
   localStorage.setItem("token", json.token);
   localStorage.setItem("user", json.user.username);
+}else{
+  alert(json.message)
 }
 
   }catch(e){
