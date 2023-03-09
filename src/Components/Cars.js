@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from "react";
-import { getAllCars } from "./allApiCalls";
+import { getAllCars } from "../allApiCalls";
 import styles from './Cars.module.css'
 
 export function Cars(){

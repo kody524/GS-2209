@@ -1,6 +1,6 @@
 
 
-  async function register (username,password,email,firstname,lastname,street,city,state,zip,phone){
+  async function register (username,password,email,firstname,lastname,street,city,state,zip,phone,isadmin){
 try{
 const response = await fetch('http://localhost:8080/api/users/register',{
   method:"POST",
@@ -17,15 +17,17 @@ const response = await fetch('http://localhost:8080/api/users/register',{
     city:city,
     state:state,
     zip:zip,
-    phone:phone
+    phone:phone,
+    isadmin:isadmin
   })
 })
 const data = await response.json()
-if (data.success) {
-  alert(data.message);
-} else {
-  alert(data.message);
+if(data.message==="Thanks for signing up!"){
+  alert(data.message)
+}else{
+  alert(data.message)
 }
+
 }catch(e){
   console.log(e,"register error")
 }

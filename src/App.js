@@ -1,5 +1,8 @@
-import { Cars } from './Cars';
-import './App.css';
+import { Cars } from "./Components/Cars";
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import { SignIn } from "./Components/Login";
+import { SignUp } from "./Components/Register";
 import NavBar from './Components/NavBar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -7,14 +10,14 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#7d1e1e',
+      main: '#7D1E1E',
     },
     secondary: {
-      main: '#6b5656',
+      main: '#6B5656',
     },
     background: {
-      default: '#2a373f',
-      paper: '#bcaaa4',
+      default: '#2A373F',
+      paper: '#BCAAA4',
     },
     text: {
       primary: 'rgba(63,53,53,0.87)',
@@ -25,12 +28,43 @@ const theme = createTheme({
 });
 
 function App() {
-  return (<>
-  <ThemeProvider theme={theme}>
-    <NavBar/>
-    <Cars/>
-  </ThemeProvider>
- </>
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zip, setZip] = useState('');
+  const [phone, setPhone] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+console.log("first",firstname,lastname)
+  return (
+    <>
+      <SignUp
+        firstname={firstname}
+        setFirstName={setFirstName}
+        setLastName={setLastName}
+        lastname={lastname}
+        email={email}
+        setEmail={setEmail}
+        street={street}
+        setStreet={setStreet}
+        city={city}
+        setCity={setCity}
+        state={state}
+        setState={setState}
+        zip={zip}
+        setZip={setZip}
+        phone={phone}
+        setPhone={setPhone}
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+      />
+    </>
   );
 }
 
