@@ -60,8 +60,8 @@ async function getUserById(userId) {
     const { rows: [userById] } = await client.query(`
     SELECT * 
     from users 
-    WHERE id=${userId}
-    `)
+    WHERE id=$1
+    `,[userId])
   //  console.log(userById)
     delete userById.password
     return userById;
@@ -113,7 +113,18 @@ async function updateUsersInfo(id, fields = {}) {
       throw error;
     }
   }
-//deleteuser and can only be deleted when logged in. 
+async function deleteAccount(id){
+    try{
+const {rows:user}= await client.query(`
+DELETE FROM users
+WHERE id=$1
+`,[id])
+return user
+    }catch(error){
+      throw error
+    }
+}
+
 
 
 module.exports = {
@@ -121,5 +132,6 @@ module.exports = {
   getUser,
   getUserById,
   getUserByUsername,
-  updateUsersInfo
+  updateUsersInfo,
+  deleteAccount
 }
