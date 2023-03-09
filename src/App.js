@@ -5,6 +5,7 @@ import { SignIn } from "./Components/Login";
 import { SignUp } from "./Components/Register";
 import NavBar from './Components/NavBar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Login } from "@mui/icons-material";
 
 const theme = createTheme({
   palette: {
@@ -39,10 +40,10 @@ function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-console.log("first",firstname,lastname)
+
   return (
     <>
-      <SignUp
+      {/* <SignUp
         firstname={firstname}
         setFirstName={setFirstName}
         setLastName={setLastName}
@@ -63,7 +64,8 @@ console.log("first",firstname,lastname)
         setUsername={setUsername}
         password={password}
         setPassword={setPassword}
-      />
+      /> */}
+      <SignIn setUsername={setUsername} username={username} setPassword={setPassword} password={password}/>
     </>
   );
 }

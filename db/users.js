@@ -5,7 +5,7 @@ const client = require("./client");
 // database functions
 
 // user functions
-async function createUser({ username, password, email, firstname, lastname, street, city, state, zip, phone,isadmin}) {
+async function createUser({ username, hashedPassword, email, firstname, lastname, street, city, state, zip, phone,isadmin}) {
  
     try{
     
@@ -14,7 +14,7 @@ async function createUser({ username, password, email, firstname, lastname, stre
       INSERT INTO users(username,password, email, firstname, lastname, street, city, state, zip, phone,isadmin)
       VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10,$11)
       RETURNING *;
-      `,[username,password, email, firstname, lastname, street, city, state, zip, phone,isadmin]);
+      `,[username,hashedPassword, email, firstname, lastname, street, city, state, zip, phone,isadmin]);
 
      delete user.password
       return user;
