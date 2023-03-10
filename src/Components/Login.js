@@ -15,19 +15,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { login } from '../allApiCalls';
+import NavBar from './NavBar';
 
-export function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 
@@ -37,6 +26,7 @@ const [success,setSuccess]=React.useState(false)
   return (
     success?<Navigate to={'/home'}/>:
     <ThemeProvider theme={theme}>
+      <NavBar />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

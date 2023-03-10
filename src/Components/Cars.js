@@ -1,6 +1,9 @@
 import React, {useState,useEffect} from "react";
 import { getAllCars } from "../allApiCalls";
 import styles from './Cars.module.css'
+import NavBar from './NavBar';
+
+
 
 export function Cars(){
     const [cars,setCars]=useState([])
@@ -10,6 +13,7 @@ getAllCars(setCars)
 },[])
 return(
 <>
+<NavBar />
 {
     cars.map(ele=>{
         return(
