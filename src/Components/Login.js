@@ -31,11 +31,11 @@ export function Copyright(props) {
 
 const theme = createTheme();
 
-export function SignIn({username,setUsername,password,setPassword}) {
+export function SignIn({username,setUsername,password,setPassword,setToken,setUserId}) {
 const [success,setSuccess]=React.useState(false)
 
   return (
-    success?<Navigate to={'/home'}/>:
+    
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -83,7 +83,7 @@ const [success,setSuccess]=React.useState(false)
               sx={{ mt: 3, mb: 2 }}
               onClick={(e)=>{
                 e.preventDefault();
-                login(username,password,setSuccess)
+                login(username,password,setSuccess,setToken,setUserId)
               }}
               
             >
@@ -101,5 +101,6 @@ const [success,setSuccess]=React.useState(false)
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    
   );
 }
