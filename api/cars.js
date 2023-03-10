@@ -80,8 +80,7 @@ if(!originalCar){
 }else{
     const deleteCar = await deleteCars(carId);
     res.send({
-        message:"Car deleted",
-        car:deleteCar
+        message:"Car deleted"
     })
 }
     }catch({name,message}){

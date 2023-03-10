@@ -1,6 +1,5 @@
 const client = require("./client");
-const SALT_COUNT = 10;
-const bcrypt = require('bcrypt')
+
 
 
 // database functions
@@ -27,7 +26,7 @@ async function createUser({ username, password, email, firstname, lastname, stre
 async function createUser({ username, password, email, firstname, lastname, street, city, state, zip, phone,isadmin}) {
  
     try{
-     const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
+    
      
      const { rows:[user] } = await client.query(`
       INSERT INTO users(username,password, email, firstname, lastname, street, city, state, zip, phone,isadmin)
@@ -49,36 +48,11 @@ async function createUser({ username, password, email, firstname, lastname, stre
 >>>>>>> ebf2371e7434277c752528f7785e4d499ac4c19b
 
 
-async function getUser({ username, password }) {
-  try{
-    const user = await getUserByUsername(username);
-    const hashedPassword = user.password;
-    const isValid = await bcrypt.compare(password, hashedPassword)
 
-    const { rows: [getUsers]  } = await client.query(`
-    SELECT *
-    FROM users
-    WHERE username =$1 
-    `,[username])
-
-   // console.log(isValid)
-    if(isValid){
-      console.log(getUsers)
-      delete getUsers.password;
-      return getUsers;
-    }else{
-      return false;
-     // throw Error('Password doesnt verify')
-    }
-
-
-  }catch(error){
-    throw Error(error)
-  }
 
   
 
-}
+
 
 async function getUserById(userId) {
   try{
@@ -98,56 +72,19 @@ async function getUserById(userId) {
 }
 
 async function getUserByUsername(userName) {
+  console.log(userName)
   try{
     const { rows: [user]} = await client.query(`
     SELECT * 
     from users 
     WHERE username=$1
     `,[userName])
-  //  console.log(user)
+
     return user;
   }catch(error){
     
     throw Error('Failed to get User')
   }
-<<<<<<< HEAD
-
-}
-
-async function updateUsersInfo(id, fields = {}) {
-    const setString = Object.keys(fields)
-      .map((key, index) => `"${key}" = $${index + 1}`)
-      .join(", ");
-    if (setString.length === 0) {
-      return;
-    }
-    try {
-      const {
-        rows: [user],
-      } = await client.query(
-        `
-              UPDATE users
-              SET ${setString}
-              WHERE id=${id}
-              RETURNING *;
-            `,
-        Object.values(fields)
-      );
-  
-      return user;
-    } catch (error) {
-      throw error;
-    }
-  }
-async function deleteAccount(id){
-    try{
-const {rows:user}= await client.query(`
-DELETE FROM users
-WHERE id=$1
-`,[id])
-return user
-    }catch(error){
-=======
 }
 
   async function getUserByEmail(email){
@@ -205,7 +142,6 @@ return user
 
 module.exports = {
   createUser,
-  getUser,
   getUserById,
   getUserByUsername,
   updateUsersInfo,
