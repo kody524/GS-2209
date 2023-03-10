@@ -1,33 +1,32 @@
 import React, {useState,useEffect} from "react";
 import { getAllCars } from "../allApiCalls";
-import styles from './Cars.module.css'
-
-export function Cars(){
-    const [cars,setCars]=useState([])
-console.log(cars)
-useEffect(()=>{
-getAllCars(setCars)
-},[])
+import {Card, Grid, Typography, Button, CardContent} from "@mui/material";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import NavBar from "./NavBar";
+export function Cars({cars, setCars}){
+useEffect(() => {
+    getAllCars(setCars).then((cars) => {
+    });
+}, []);
 return(
-<>
-{
-    cars.map(ele=>{
-        return(
-            <div className={styles.container}>
-        <div className={styles.box}>
-            <p>make:{ele.make}</p>
-            <p>model:{ele.model}</p>
-            <p>year:{ele.year}</p>
-            <p>price:{ele.price}</p>
-            <p>inventory:{ele.inventory}</p>
-            <p>condition:{ele.condition}</p>
-            <p>engine:{ele.engine}</p>
-            </div>
-            </div>
-        )
-    })
+<Grid>
+{cars.map((cars) => {
+    return (<>
+        <NavBar/>
+        <Grid item key={cars.vehicle_id}>
+            <Card>
+                <CardContent>
+                    <img src={cars.image} alt={cars.description} style={{ maxWidth: '100%', height: 'auto' }}/>
+                    <Typography variant="h5">{cars.make}</Typography>
+                    <Typography variant="h6">{cars.model}</Typography>
+                    <Typography variant="h6">{cars.price}</Typography>
+                    <Typography variant="body1">{cars.description}</Typography>
+                    <Button variant="contained">Vehicle Single View</Button>
+                </CardContent>
+            </Card>
+        </Grid>
+   </> );
+})}
+</Grid>)
 }
-</>
-)
-
-}
+export default Cars;

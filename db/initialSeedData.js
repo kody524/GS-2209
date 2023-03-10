@@ -98,8 +98,8 @@ async function createInitialUsers() {
     try {
       // users
       const usersToCreate = [
-          { username: "mike123", password: 'password1', email:'mike@gmail.com',firstname:"mike",lastname:"miller",street:"123 drive",city:"hills",state:"arizone",zip:'12345',phone:'123456789'},
-          { username: 'manchester', password: 'united', email:'manu@yahoo.com',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'}
+          { username: "mike123", hashedPassword: 'password1', email:'mike@gmail.com',firstname:"mike",lastname:"miller",street:"123 drive",city:"hills",state:"arizone",zip:'12345',phone:'123456789'},
+          { username: 'manchester', hashedPassword: 'united', email:'manu@yahoo.com',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'}
       ];
 
       const users = await Promise.all(usersToCreate.map(createUser))

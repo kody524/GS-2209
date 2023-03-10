@@ -28,7 +28,7 @@ alert(data.message)
   console.log(e,"register error")
 }
 }
- async function login(username,password,setSuccess){
+ async function login(username,password,setSuccess,setToken,setUserId){
   try{
 const response = await fetch("http://localhost:8080/api/users/login",
 {
@@ -47,6 +47,8 @@ console.log(json)
 if (json.message === "Successful Login") {
   alert(json.message);
   setSuccess(true)
+  setToken(json.token)
+  setUserId(json.user)
   localStorage.setItem("token", json.token);
   localStorage.setItem("user", json.user.username);
 }else{
