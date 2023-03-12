@@ -1,13 +1,18 @@
-import NavBar from './Components/NavBar';
-import Search from './Components/Search';
-import Footer from './Components/Footer';
+import NavBar from './NavBar';
+import Search from './Search';
+import Footer from './Footer';
+import Carousel from './Carousel';
 
-const home = props => {
+
+const Home = props => {
     return (
         <div>
             <NavBar />
             <Search />
+            <Carousel />
             <Footer />
         </div>
     )
 };
+
+export default Home; 

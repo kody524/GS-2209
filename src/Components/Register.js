@@ -16,19 +16,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {register} from "../allApiCalls"
 import NavBar from './NavBar';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from './Copyright';
 
 
 
@@ -204,3 +192,5 @@ export function SignUp({firstname,setFirstName,lastname,setLastName,email,setEma
     </ThemeProvider>
   );
 }
+
+export default SignUp;

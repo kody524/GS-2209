@@ -16,6 +16,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { login } from '../allApiCalls';
 import NavBar from './NavBar';
+import Copyright from './Copyright';
 
 
 const theme = createTheme();
@@ -93,3 +94,5 @@ const [success,setSuccess]=React.useState(false)
     </ThemeProvider>
   );
 }
+
+export default SignIn;

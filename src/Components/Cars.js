@@ -35,3 +35,5 @@ return(
 )
 
 }
+
+export default Cars;

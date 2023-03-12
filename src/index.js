@@ -6,6 +6,8 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 import Profile from './Components/Profile';
 import Admin from './Components/Admin';
+import Home from './Components/Home';
+import Cart from './Components/Cart';
 
 import {
     createBrowserRouter,
@@ -13,8 +15,6 @@ import {
     Route,
     RouterProvider,
   } from "react-router-dom";
-import { Cars } from './Components/Cars';
-import { Login } from '@mui/icons-material';
 
   const router = createBrowserRouter(
     createRoutesFromElements(

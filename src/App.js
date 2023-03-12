@@ -29,12 +29,6 @@ const theme = createTheme({
 });
 
 function App() {
-<<<<<<< HEAD
-  return (<>
-    <Cars/>
-    <h1>Went to break</h1>
- </>
-=======
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -73,7 +67,6 @@ function App() {
       /> */}
       <SignIn setUsername={setUsername} username={username} setPassword={setPassword} password={password}/>
     </>
->>>>>>> ebf2371e7434277c752528f7785e4d499ac4c19b
   );
 }
 
