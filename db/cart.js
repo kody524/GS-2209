@@ -35,7 +35,7 @@ async function getCartsByUser(userId) {
         
         return getCartItemsByCartId(cart.id)
     } catch (error) {
-        throw error;
+        console.log(error);
     }
 }
 async function getAllCarts() {

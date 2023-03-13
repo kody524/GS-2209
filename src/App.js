@@ -9,6 +9,7 @@ import Account from "./Components/Account";
 import NavBar from './Components/NavBar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Login } from "@mui/icons-material";
+import Home from "./Components/Home";
 
 const theme = createTheme({
   palette: {
@@ -45,35 +46,39 @@ function App() {
   const[token,setToken]=useState('')
   const[userId,setUserId]=useState(0)
   const[cars,setCars]=useState([])
+  const[success,setSuccess]=useState(false)
+const[loginSuccess,setLoginSuccess]=useState(false)
 
 
+console.log(loginSuccess)
   return (
+   
     <>
      <BrowserRouter>
      <Routes>
       <Route
       path="/"
+      element={<Home loginSuccess={loginSuccess}/>}
       >
       </Route>
       <Route
       path="/login"
-      element={<SignIn username={username} setUsername={setUsername} password={password} setPassword={setPassword} setToken={setToken} setUserId={setUserId} />}
+      element={<SignIn username={username} setUsername={setUsername} password={password} setPassword={setPassword} setToken={setToken} setUserId={setUserId} token={token}  userId={userId} setLoginSuccess={setLoginSuccess} loginSuccess={loginSuccess} />}
       >
       </Route>
       <Route
       path="/register"
-      element={<SignUp firstname={firstname} setFirstName={setFirstName} lastname={lastname} setLastName={setLastName} email={email} setEmail={setEmail} street={street} setStreet={setStreet}
-      city={city} setCity={setCity} state={state} setState={setState} zip={zip} setZip={setZip} phone={phone} setPhone={setPhone} username={username} setUsername={setUsername} password={password}
-      />}
+      element={<SignUp firstname={firstname} setFirstName={setFirstName} lastname={lastname} setLastName={setLastName} email={email} setEmail={setEmail} street={street} setStreet={setStreet} zip={zip} setZip={setZip} phone={phone} setPhone={setPhone} success={success}
+      city={city} setCity={setCity} state={state} setState={setState} setSuccess={setSuccess} username={username} setUsername={setUsername} password={password} setPassword={setPassword} loginSuccess={loginSuccess}/>}
       ></Route>
       <Route 
       path="/cars"
-      element={<Cars cars={cars} setCars={setCars}/>}
+      element={<Cars cars={cars} setCars={setCars} loginSuccess={loginSuccess}/>}
       >
       </Route>
       <Route 
       path="/account"
-      element={<Account/>}
+      element={<Account loginSuccess={loginSuccess}/>}
       >
       </Route>
      </Routes>

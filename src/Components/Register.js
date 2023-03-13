@@ -1,5 +1,4 @@
 
-
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {register} from "../allApiCalls"
+import NavBar from './NavBar';
+import { Navigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -31,17 +32,19 @@ function Copyright(props) {
 
 
 
-export function SignUp({firstname,setFirstName,lastname,setLastName,email,setEmail,street,setStreet,city,setCity,state,setState,zip,setZip,phone,setPhone,username,setUsername,password,setPassword,isadmin,setIsAdmin}) {
+export function SignUp({firstname,setFirstName,lastname,setLastName,email,setEmail,street,setStreet,city,setCity,state,setState,zip,setZip,phone,setPhone,username,setUsername,password,setPassword, success, setSuccess,token,setToken,loginSuccess}) {
     const theme = createTheme();
+   
 
-
-  return (
+  return (<>
+  {success?<Navigate to='/login' />:null}
+  <NavBar loginSuccess={loginSuccess}/>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 95,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -174,15 +177,7 @@ export function SignUp({firstname,setFirstName,lastname,setLastName,email,setEma
               sx={{ mt: 3, mb: 2 }}
               onClick={(e)=>{
                 e.preventDefault()
-                register(username,password,email,firstname,lastname,street,city,state,zip,phone)
-                setEmail('')
-                setFirstName('')
-                setLastName('')
-                setStreet('')
-                setCity('')
-                setState('')
-                setZip('')
-                setPhone('')
+                register(username,password,email,firstname,lastname,street,city,state,zip,phone,setSuccess)
 
               }}
             >
@@ -190,7 +185,7 @@ export function SignUp({firstname,setFirstName,lastname,setLastName,email,setEma
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -200,5 +195,5 @@ export function SignUp({firstname,setFirstName,lastname,setLastName,email,setEma
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
-  );
+  </>);
 }
