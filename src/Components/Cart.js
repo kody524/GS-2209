@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
- function BasicModal({loginSuccess}) {
+ function BasicModal() {
   const [open, setOpen] = React.useState(false);
   const[edit,setEdit]=React.useState(false)
   const[order,setOrder]=React.useState(false)
@@ -27,7 +27,7 @@ const style = {
   const handleClose = () => setOpen(false);
 
   return (<>
-    <Navbar loginSuccess={loginSuccess}/>
+    <Navbar/>
     <div>
       <Button onClick={()=>{
         handleOpen()

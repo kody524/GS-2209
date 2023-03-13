@@ -15,6 +15,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { login } from '../allApiCalls';
+import NavBar from './NavBar';
+import Home from './Home';
 
 export function Copyright(props) {
   return (
@@ -31,17 +33,18 @@ export function Copyright(props) {
 
 const theme = createTheme();
 
-export function SignIn({username,setUsername,password,setPassword,setToken,setUserId}) {
-const [success,setSuccess]=React.useState(false)
+export function SignIn({username,setUsername,password,setPassword,setToken,setUserId,loginSuccess,setLoginSuccess}) {
 
-  return (
-    
+  return (<>
+  {loginSuccess?<Navigate to='/' />:null}
+
+    <NavBar loginSuccess={loginSuccess}/>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 50,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -83,7 +86,7 @@ const [success,setSuccess]=React.useState(false)
               sx={{ mt: 3, mb: 2 }}
               onClick={(e)=>{
                 e.preventDefault();
-                login(username,password,setSuccess,setToken,setUserId)
+                login(username,password,setLoginSuccess,setToken,setUserId)
               }}
               
             >
@@ -102,5 +105,5 @@ const [success,setSuccess]=React.useState(false)
       </Container>
     </ThemeProvider>
     
-  );
+    </>);
 }

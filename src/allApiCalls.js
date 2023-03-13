@@ -1,6 +1,6 @@
 
 
-  async function register (username,password,email,firstname,lastname,street,city,state,zip,phone,isadmin){
+  async function register (username,password,email,firstname,lastname,street,city,state,zip,phone,setSuccess){
 try{
 const response = await fetch('http://localhost:8080/api/users/register',{
   method:"POST",
@@ -17,18 +17,20 @@ const response = await fetch('http://localhost:8080/api/users/register',{
     city:city,
     state:state,
     zip:zip,
-    phone:phone,
-    isadmin:isadmin
+    phone:phone
   })
 })
 const data = await response.json()
 alert(data.message)
+if(data.message==="Thanks for signing up!"){
+setSuccess(true)
+}
 
 }catch(e){
   console.log(e,"register error")
 }
 }
- async function login(username,password,setSuccess,setToken,setUserId){
+ async function login(username,password,setLoginSuccess,setToken,setUserId){
   try{
 const response = await fetch("http://localhost:8080/api/users/login",
 {
@@ -46,11 +48,12 @@ const json = await response.json()
 console.log(json)
 if (json.message === "Successful Login") {
   alert(json.message);
-  setSuccess(true)
+  setLoginSuccess(true)
   setToken(json.token)
   setUserId(json.user)
   localStorage.setItem("token", json.token);
-  localStorage.setItem("user", json.user.username);
+  localStorage.setItem("user", json.username);
+  localStorage.setItem("id", json.user)
 }else{
   alert(json.message)
 }
@@ -248,7 +251,7 @@ const response = await data.json()
     console.log(e,"error deleting car")
   }
 }
- async function getCart(userId){
+ async function getCart(userId,setCart){
 try{
 const data = await fetch(`http://localhost:8080/api/cart/${userId}`,
 {
@@ -257,6 +260,10 @@ const data = await fetch(`http://localhost:8080/api/cart/${userId}`,
   }
 })
 const response = await data.json()
+if(!response.message){
+setCart(response)
+}
+console.log(response)
 }catch(e){
   console.log(e,"error getting cart")
 }

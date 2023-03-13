@@ -3,30 +3,27 @@ const router = express.Router();
 const jwt = require('jsonwebtoken')
 const{getUserById}=require('../db/users')
 const{getCartsByUser,deleteCart,updateCart}=require('../db/cart');
+const { ElevatorSharp } = require("@mui/icons-material");
 
 
 
 
 router.get('/:userId',async(req,res,next)=>{
     const {userId}=req.params;
-    const getUser = await getUserById(userId)
    try{
-    if(getUser.id){
-        const getCart = await getCartsByUser(userId)
-        console.log(getCart)
-        if(getCart){
-            res.send(getCart)
-        }else{
-            res.send({name:"NoCartFound",message:"no cart found for that user"})
-        }
+const user  = await getUserById(userId)
+if(user===undefined){
+    res.send({message:"no user exists"})
+}else{
+    const cart = await getCartsByUser(userId)
+    if(cart===undefined){
+        res.send({message:"no cart exists"})
     }else{
-        res.send({
-            name:"NoUserFound",
-            message:"No user exists with that id"
-        })
+        res.send(cart)
     }
-   }catch({name,message}){
-    next({name,message})
+}
+   }catch(error){
+    console.log(error)
    }
 })
 router.patch('/:userId',async(req,res,next)=>{

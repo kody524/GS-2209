@@ -47,7 +47,7 @@ async function getUserById(userId) {
     return userById;
 
   }catch(error){
-    throw Error('Failed to get user by Id')
+    console.log('Failed to get user by Id')
   }
 
 }

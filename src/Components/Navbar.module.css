@@ -1,0 +1,7 @@
+.cartcontainer{
+    display: flex;
+    flex-direction: row;
+}
+.cartcontainer > p{
+    margin: 20px;
+}

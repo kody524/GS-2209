@@ -3,7 +3,7 @@ import { getAllCars } from "../allApiCalls";
 import {Card, Grid, Typography, Button, CardContent} from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import NavBar from "./NavBar";
-export function Cars({cars, setCars}){
+export function Cars({cars, setCars,loginSuccess}){
 useEffect(() => {
     getAllCars(setCars).then((cars) => {
     });
@@ -12,7 +12,7 @@ return(
 <Grid>
 {cars.map((cars) => {
     return (<>
-        <NavBar/>
+        <NavBar loginSuccess={loginSuccess}/>
         <Grid item key={cars.vehicle_id}>
             <Card>
                 <CardContent>

@@ -106,6 +106,7 @@ if(req.headers.authorization){
     }
 })
 router.patch('/me',async(req,res,next)=>{
+    const { username, password,email,firstname,lastname,street,city,state,zip,phone}=req.body;
     try{
         if(req.headers.authorization){
             const usertoken = req.headers.authorization
