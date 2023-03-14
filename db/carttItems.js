@@ -38,13 +38,13 @@ async function updateCartItem({cartItemId, quantity}) {
         throw error;
     }
 }
-async function deleteCartItem(cartItemId) {
+async function deleteCartItem(vehicle_id) {
     try {
         const {rows: [cartItem]} = await client.query(`
             DELETE FROM cart_items
-            WHERE id = $1
+            WHERE vehicle_id = $1
             RETURNING *;
-        `, [cartItemId]);
+        `, [vehicle_id]);
         return cartItem;
     } catch (error) {
         throw error;
