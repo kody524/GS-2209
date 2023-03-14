@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, {useState,useEffect} from "react";
 import { getAllCars, getSingleCar } from "../allApiCalls";
 import {Card, Grid, Typography, Button, CardContent, Dialog, Modal} from "@mui/material";
@@ -6,8 +7,9 @@ import NavBar from "./NavBar";
 import SingleCarModal from "./SingleCarModal";
 export function Cars({cars, setCars,loginSuccess}){
 useEffect(() => {
+   
     getAllCars(setCars)
-    },[]);
+    },[setCars]);
 
 console.log(cars)
 const [searchQuery, updateSearchQuery] = useState('')
@@ -44,17 +46,17 @@ return(
     onChange = {(event) => {updateSearchQuery(event.target.value)}}
 />
 <Grid>
-{cars.map((cars) => {
+{cars.map((car) => {
     return (<>
-        <NavBar/>
+        <NavBar loginSuccess={loginSuccess}/>
         <Grid item xs={12} sm={6} md={4} lg={3} key={cars.vehicle_id}>
             <Card>
                 <CardContent>
-                    <img src={cars.image} alt={cars.description} style={{ maxWidth: '100%', height: 'auto' }}/>
-                    <Typography variant="h5">{cars.make}</Typography>
-                    <Typography variant="h6">{cars.model}</Typography>
-                    <Typography variant="h6">{cars.price}</Typography>
-                    <Typography variant="body1">{cars.description}</Typography>
+                   
+                    <Typography variant="h5">{car.make}</Typography>
+                    <Typography variant="h6">{car.model}</Typography>
+                    <Typography variant="h6">{car.price}</Typography>
+                    <Typography variant="body1">{car.description}</Typography>
                     {/* <Button variant="contained" onClick={<SingleCarModal carId={cars.id}/>}>Vehicle Single View</Button> */}
                 </CardContent>
             </Card>

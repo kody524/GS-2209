@@ -51,9 +51,9 @@ RETURNING *
 async function getAllCars() {
   try {
     const { rows } = await client.query(`
-    SELECT cars.*,ratings.review,ratings.stars,ratings.userid
-    FROM cars JOIN ratings ON ratings.vehicleid=cars.id`
+    SELECT * FROM cars`
         );
+        
     return rows;
   } catch (error) {
     throw error;
