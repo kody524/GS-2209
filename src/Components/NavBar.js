@@ -85,8 +85,12 @@ console.log(cart)
               <Tab href="http://localhost:3000/cars" label='Cars'/>
               <Tab href="http://localhost:3000/admin" label='Admin'/>
             </Tabs>
-            {loginSuccess?(
-             <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3000/">Logout
+            {id?(
+             <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3000/" onClick={()=>{
+              localStorage.removeItem('id')
+              localStorage.removeItem('user')
+              localStorage.removeItem('token')
+             }} >Logout
              </Button>):(<>
             <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3000/login">LogIn
             </Button>
@@ -96,7 +100,7 @@ console.log(cart)
             </>)}
             <Button sx={{ padding: "8px", margin: "10px" }} variant="contained" onClick={()=>{
               handleOpen()
-              getCart(1,setCart)
+              getCart(id,setCart)
             }}>
              Cart
             </Button>

@@ -125,7 +125,7 @@ alert(data.message)
 }
  async function getAllCars(setCars){
   try{
-    const response = await fetch('http://localhost:8080/api/cars',
+    const response = await fetch("http://localhost:8080/api/cars",
     {
       headers:{
           "Content-Type": "application/json",
@@ -134,7 +134,7 @@ alert(data.message)
     
     );
     const data = await response.json();
-  
+  console.log(data)
     setCars(data)
   }catch(error){
       console.log(error,"error getting cars")
@@ -302,7 +302,7 @@ const response = await data.json();
 }
  async function updateCartItems(cartItemId,quantity){
   try{
-const data = await fetch(`http://localhost:8080/api/cart/${cartItemId}`,
+const data = await fetch(`http://localhost:8080/api/cartitems/${cartItemId}`,
 {
   method:"PATCH",
   headers:{
@@ -320,7 +320,7 @@ const response = await data.json()
  async function deleteCartItem(cartItemId){
   console.log(cartItemId)
   try{
-const data = await fetch(`http://localhost:8080/api/cart/${cartItemId}`,
+const data = await fetch(`http://localhost:8080/api/cartitems/${cartItemId}`,
 {
   method:"DELETE",
   headers:{
