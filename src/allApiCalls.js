@@ -134,6 +134,7 @@ alert(data.message)
     
     );
     const data = await response.json();
+  
     setCars(data)
   }catch(error){
       console.log(error,"error getting cars")
@@ -317,6 +318,7 @@ const response = await data.json()
   }
 }
  async function deleteCartItem(cartItemId){
+  console.log(cartItemId)
   try{
 const data = await fetch(`http://localhost:8080/api/cart/${cartItemId}`,
 {
@@ -326,6 +328,7 @@ const data = await fetch(`http://localhost:8080/api/cart/${cartItemId}`,
   }
 })
 const response = await data.json();
+console.log(response)
   }catch(e){
     console.log(e,"error deleting cart item")
   }

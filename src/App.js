@@ -5,11 +5,12 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SignIn } from "./Components/Login";
 import { SignUp } from "./Components/Register";
-import Account from "./Components/Account";
+
 import NavBar from './Components/NavBar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Login } from "@mui/icons-material";
 import Home from "./Components/Home";
+import AdminEditCar from "./Components/AdminCarEdit";
 
 const theme = createTheme({
   palette: {
@@ -50,7 +51,7 @@ function App() {
 const[loginSuccess,setLoginSuccess]=useState(false)
 
 
-console.log(loginSuccess)
+console.log(cars)
   return (
    
     <>
@@ -77,8 +78,8 @@ console.log(loginSuccess)
       >
       </Route>
       <Route 
-      path="/account"
-      element={<Account loginSuccess={loginSuccess}/>}
+      path="/admin"
+      element={<AdminEditCar loginSuccess={loginSuccess}/>}
       >
       </Route>
      </Routes>

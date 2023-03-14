@@ -4,12 +4,11 @@ import {Card, Grid, Typography, Button, CardContent, Dialog, Modal} from "@mui/m
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import NavBar from "./NavBar";
 import SingleCarModal from "./SingleCarModal";
-export function Cars({cars, setCars,loginSuccess}){
+export function Cars({cars, setCars}){
 useEffect(() => {
-    getAllCars(setCars)
-    },[]);
-
-console.log(cars)
+    getAllCars(setCars).then((cars) => {console.log(cars)
+    });
+}, []);
 const [searchQuery, updateSearchQuery] = useState('')
 let carsToDisplay = cars;
 function carMatches(car, text) {
@@ -34,7 +33,7 @@ if(searchQuery.length > 0) {
 }
 return(
 <>
-<NavBar loginSuccess={loginSuccess}></NavBar>
+<NavBar></NavBar>
 <h1>Cars</h1>
 <h2>Search</h2>
 <input

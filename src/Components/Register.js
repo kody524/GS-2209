@@ -44,7 +44,7 @@ export function SignUp({firstname,setFirstName,lastname,setLastName,email,setEma
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 95,
+            marginTop: 20,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

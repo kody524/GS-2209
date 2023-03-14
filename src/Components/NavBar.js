@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from '@mui/material/Link';
-import { getCart} from "../allApiCalls";
+import { getCart, deleteCartItem} from "../allApiCalls";
 import {AppBar, Button, Typography, IconButton, useTheme, useMediaQuery, Toolbar, Tab, Tabs,Modal,Box} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -30,7 +30,7 @@ const NavBar = ({loginSuccess}) => {
 
 
 
-console.log(loginSuccess)
+console.log(cart)
   return (
     open?<>
     <NavBar/>
@@ -53,11 +53,14 @@ console.log(loginSuccess)
             <h2>Cart</h2>
             {
               cart.map((ele,ind)=>{
-                return (<div className={styles.cartcontainer}>
+                console.log(ele)
+                return (<div key={ele.vehicle_id}className={styles.cartcontainer}>
                   <p>Make: {cart[ind].make}</p>
                   <p>Model: {cart[ind].model}</p>
                   <p>Price: {cart[ind].price}</p>
-                  <button>Remove</button>
+                  <button onClick={()=>{
+                    deleteCartItem(ele.vehicle_id)
+                  }}>Remove</button>
                 </div>)
               })
             }
@@ -80,10 +83,10 @@ console.log(loginSuccess)
             >
               <Tab href="http://localhost:3000/" label='Home'/>
               <Tab href="http://localhost:3000/cars" label='Cars'/>
-              <Tab href="http://localhost:3000/account" label='Account'/>
+              <Tab href="http://localhost:3000/admin" label='Admin'/>
             </Tabs>
             {loginSuccess?(
-             <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3000/login">Logout
+             <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3000/">Logout
              </Button>):(<>
             <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3000/login">LogIn
             </Button>
