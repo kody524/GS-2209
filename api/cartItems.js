@@ -27,7 +27,7 @@ router.delete('/:cartItemId',async(req,res,next)=>{
     const {cartItemId}=req.params;
     try{
 const deleteItem = await deleteCartItem(cartItemId)
-res.send({success:true,deleteItem})
+res.send({message:"Item deleted",deleteItem})
     }catch({name,message}){
         next({name,message})
     }

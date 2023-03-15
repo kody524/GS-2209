@@ -7,6 +7,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { padding } from "@mui/system";
 import { Navigate } from "react-router-dom";
 import styles from './Navbar.module.css'
+import Checkout from "./Checkout";
 import { logDOM } from "@testing-library/react";
 const style = {
   position: 'absolute',
@@ -21,17 +22,31 @@ const style = {
 };
 const NavBar = ({loginSuccess}) => {
   const id = localStorage.getItem("id")
+  const admin = localStorage.getItem("isadmin")
   const [open, setOpen] = React.useState(false);
   const[edit,setEdit]=React.useState(false)
   const[order,setOrder]=React.useState(false)
   const[cart,setCart]=useState([])
+  const[checkout,setCheckout]=useState(false)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+ 
+useEffect(()=>{
+  getCart(id,setCart)
+ 
 
+},[])
 
-
-console.log(cart)
+console.log()
+function sum(){
+  let result = 0
+  cart.map((ele,ind)=>{
+    result+=ele.price
+  })
+  return result
+}
   return (
+    checkout?<Navigate to='/checkout'/>:
     open?<>
     <NavBar/>
     <Modal
@@ -64,8 +79,8 @@ console.log(cart)
                 </div>)
               })
             }
-            <p>Total:</p>
-            <button>Checkout</button>
+            <p>Total:{sum(cart)}</p>
+            <button onClick={()=>setCheckout(true)}>Checkout</button>
          </div> )
         }
       </Typography>
@@ -83,27 +98,31 @@ console.log(cart)
             >
               <Tab href="http://localhost:3000/" label='Home'/>
               <Tab href="http://localhost:3000/cars" label='Cars'/>
-              <Tab href="http://localhost:3000/admin" label='Admin'/>
+              {admin?<Tab href="http://localhost:3000/admin" label='Admin'/>:null}
             </Tabs>
-            {id?(
+            {id?(<>
+             
              <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3000/" onClick={()=>{
               localStorage.removeItem('id')
               localStorage.removeItem('user')
               localStorage.removeItem('token')
+              localStorage.removeItem('isadmin')
              }} >Logout
-             </Button>):(<>
+             </Button>
+             <Button sx={{ padding: "8px", margin: "10px" }} variant="contained" onClick={()=>{
+                handleOpen()
+                getCart(id,setCart)
+              }}>
+               Cart
+              </Button>
+             </>):(<>
             <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3000/login">LogIn
             </Button>
             <Button sx={{ padding: "8px", margin: "10px" }} variant="contained" href="http://localhost:3000/register">
              Register
             </Button>
             </>)}
-            <Button sx={{ padding: "8px", margin: "10px" }} variant="contained" onClick={()=>{
-              handleOpen()
-              getCart(id,setCart)
-            }}>
-             Cart
-            </Button>
+            
       </Toolbar>
     </AppBar>
   )

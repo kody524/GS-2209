@@ -10,7 +10,9 @@ import NavBar from './Components/NavBar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Login } from "@mui/icons-material";
 import Home from "./Components/Home";
-import AdminEditCar from "./Components/AdminCarEdit";
+import AdminEditCar from "./Components/Admin";
+import Admin from "./Components/Admin";
+import Checkout from "./Components/Checkout";
 
 const theme = createTheme({
   palette: {
@@ -51,7 +53,7 @@ function App() {
 const[loginSuccess,setLoginSuccess]=useState(false)
 
 
-console.log(cars)
+
   return (
    
     <>
@@ -79,9 +81,15 @@ console.log(cars)
       </Route>
       <Route 
       path="/admin"
-      element={<AdminEditCar loginSuccess={loginSuccess}/>}
+      element={<Admin/>}
       >
+        
       </Route>
+      <Route
+        path='/checkout'
+        element={<Checkout/>}
+        >
+        </Route>
      </Routes>
      </BrowserRouter>
     </>

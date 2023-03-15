@@ -1,0 +1,17 @@
+.container{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding-top: 50px;
+}
+
+.usercontainer{
+    padding-left: 10px;
+    height: 400px;
+    width: 300px;
+    border: solid;
+    border-width: 1px;
+    border-color: black;
+    
+}

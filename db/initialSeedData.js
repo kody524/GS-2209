@@ -50,7 +50,7 @@ try{
       make varchar(255) NOT NULL,
       model varchar(255) NOT NULL,
       year integer,
-      price DECIMAL(10, 2) NOT NULL,
+      price INTEGER,
       img varchar(255) NOT NULL,
       inventory integer,
       condition varchar(255) NOT NULL,
@@ -99,8 +99,17 @@ async function createInitialUsers() {
     try {
       // users
       const usersToCreate = [
-          { username: "mike123", hashedPassword: 'password1', email:'mike@gmail.com',firstname:"mike",lastname:"miller",street:"123 drive",city:"hills",state:"arizone",zip:'12345',phone:'123456789'},
-          { username: 'manchester', hashedPassword: 'united', email:'manu@yahoo.com',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'}
+          { username: "mike123", hashedPassword: '$2a$10$.FCPbw8cQ2hWCE4vUtJ4IOPDHozllqJlWOboaT5uVnBnJ5UMxb0wm', email:'mike@gmail.com',firstname:"mike",lastname:"miller",street:"123 drive",city:"hills",state:"arizone",zip:'12345',phone:'123456789'},
+          { username: 'manchester', hashedPassword: '$2a$10$LiRuWwioN6T1OppVogisH.UiKboDtRlfVgQifhCK2gTFm/a31lanK', email:'manu@yahoo.com',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'},
+          { username: 'kodykid1994', hashedPassword: '$2b$10$8Un.yYmt8kE9ZkHH43/BKOCJ5d9/ISFw7lnDZe3HCfAcCkiqmK6Xe', email:'kody524@icloud.com',firstname:"kody",lastname:"richardson",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321',isadmin:true},
+          { username: 'tester1', hashedPassword: '$2a$10$FEYFNBHJ0zimF.frYgjvz.mXT/X.k2NsMdy7UTTH0u7L/DCSgGEwC', email:'manu@yahoo.com9',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'},
+          { username: 'tester2', hashedPassword: '$2a$10$wYu3voiJPEZZJlMzurmW3uu0XqpQdVX2KO34qgwhIgrNK.aqm.XsC', email:'manu@yahoo.com1',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'},
+          { username: 'tester3', hashedPassword: '$2a$10$kPiFkupAdePt1hghEGWrCeKzQVKg0QQ4DAppQI7xErzg56TRSkXsW', email:'manu@yahoo.com2',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'},
+          { username: 'tester4', hashedPassword: '$2a$10$M4SAR1YTKQoO1M68/eZL4u5isC5r6A8hFFZNnXf5INAq3l3Xm5vbu', email:'manu@yahoo.com3',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'},
+          { username: 'tester5', hashedPassword: '$2a$10$qbTCYpMQrfuzfMHUgS1fS.yUu55Jx9XmR1JlD3BrY7jktsGMwSBIy', email:'manu@yahoo.com4',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'},
+          { username: 'tester6', hashedPassword: '$2a$10$xhdDTMh5jdgYwyaGeTxbZuIMv8pzZTVTLCKgyiHst3p9yzPED97Eu', email:'manu@yahoo.com5',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'},
+          { username: 'tester7', hashedPassword: '$2a$10$DV5NS6knRheQzVUb98X7YuUnOoAi8lyVkLLqlOZJVSDC8OL0K3WtS', email:'manu@yahoo.com6',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'},
+          { username: 'tester8', hashedPassword: '$2a$10$3yTAcxyvFKU92yUvzr/HoecNXK2yc5Q0NSdrkWMBSbajQiAPKQoJe', email:'manu@yahoo.com7',firstname:"bob",lastname:"builder",street:"321 drive",city:"dallas",state:"texas",zip:'54321',phone:'987654321'}
       ];
 
       const users = await Promise.all(usersToCreate.map(createUser))
@@ -120,33 +129,35 @@ async function createInitialUsers() {
         model:'Cullinan',
         year:'2023',
         price:425000,
-        img:'www.wheelfront.com/wp-content/uploads/formidable/8/rolls-royce-cullinan-agluxury-wheels-agl48rr-monoblock-two-tone-gloss-white-polished-windows-4.jpg',
-        inventory:'5',
+        img:'https://wheelfront.com/wp-content/uploads/formidable/8/rolls-royce-cullinan-agluxury-wheels-agl48rr-monoblock-two-tone-gloss-white-polished-windows-4.jpg',
+        inventory:'1',
         condition:'brand-new',
         engine:'v12',
         transmission:'8-speed automatic',
         drivetrain:'AWD',
         fuel:'gas',
-        exteriorcolor:'white',
-        interiorcolor:'black',
+        exteriorcolor:'White',
+        interiorcolor:'Black',
         description:'Beautiful 2023 Rolls Royce Cullinan with 8-speed automatic transmission and 563hp. This beauty has a black leather interior with a sunroof/moonroof. All wheel drive allows you to drive in luxury in any terrain!'
         },
+        
         {
         make:'Aston Martin',
         model:'DBX 707',
         year:'2023',
         price:250000,
-        img:'www.astonmartinwashingtondc.com/imagetag/3376/34/l/New-2023-Aston-Martin-DBX-707-1675721659.jpg',
-        inventory:'3',
+        img:'https://www.astonmartinwashingtondc.com/imagetag/3376/34/l/New-2023-Aston-Martin-DBX-707-1675721659.jpg',
+        inventory:'1',
         condition:'brand-new',
         engine:'v8',
         transmission:'9-speed automatic',
         drivetrain:'AWD',
         fuel:'gas',
-        exteriorcolor:'gray',
-        interiorcolor:'black',
-        description:'Beautiful 2023 Aston Martin DBX 707 with 9-speed automatic transmission and 697hp. This beauty has a black leather interior with a sunroof/moonroof. This sleek crossover provides the space without sacrificing the luxury!'
+        exteriorcolor:'Gray',
+        interiorcolor:'Black',
+        description:'Beautiful 2023 Aston Martin DBX 707 with 9-speed automatic transmission and 697hp. This beauty has a black leather interior with a sunroof/moonroof',
         },
+        
         {
         make:'Mercedes Benz',
         model:'G 550',
@@ -159,10 +170,11 @@ async function createInitialUsers() {
         transmission:'9-speed automatic',
         drivetrain:'AWD',
         fuel:'gas',
-        exteriorcolor:'black',
-        interiorcolor:'black',
+        exteriorcolor:'Black',
+        interiorcolor:'Black',
         description:'Beautiful 2022 Mercedes G 550 SUV with 9-speed automatic transmission and 416hp. This beauty has a black leather interior with a sunroof/moonroof.'
         },
+        
         {
         make:'Tesla',
         model:'Model X',
@@ -175,10 +187,11 @@ async function createInitialUsers() {
         transmission:'N/A - Battery 100kWh 410-V lithium ion ',
         drivetrain:'AWD',
         fuel:'N/A',
-        exteriorcolor:'white',
-        interiorcolor:'white',
-        description:'Beautiful 2023 Tesla Model X with a 410 V lithium-ion battery. This beauty has a gray leather interior with a sunroof/moonroof.'
+        exteriorcolor:'White',
+        interiorcolor:'White',
+        description:'Beautiful 2023 Tesla Model X with a 410 V lithium-ion battery. This beauty has a gray leather interior with a sunroof/moonroof. Cruise in style while maintaining a minimal carbon footprint.'
         },
+        
         {
         make:'Audi',
         model:'S4 3.0T Premium Plus Sedan',
@@ -191,9 +204,263 @@ async function createInitialUsers() {
         transmission:'8-speed automatic',
         drivetrain:'quattro',
         fuel:'gas',
-        exteriorcolor:'charcoal gray',
-        interiorcolor:'black',
+        exteriorcolor:'Charcoal Gray',
+        interiorcolor:'Black',
         description:'Beautiful 2023 Audi S4 sedan with 8-speed automatic transmission. This beauty has a black leather interior and can seat up to 5 passengers.'
+        },
+        
+        {
+        make:'Land Rover',
+        model:'Range Rover SV Carmel',
+        year:'2023',
+        price:345000,
+        img:'https://www.kbb.com/wp-content/uploads/2022/08/2023-Range-Rover-SV-Carmel-Edition-front-quarter-left.jpg?resize=763,610',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v12',
+        transmission:'9-speed automatic',
+        drivetrain:'AWD',
+        fuel:'gas',
+        exteriorcolor:'White',
+        interiorcolor:'Black',
+        description:'Limited! Limited! Limited! This is one of the 17 models Land Rover released for the SV Carmel edition'
+        },
+        
+        {
+        make:'Bentley',
+        model:'Continental GT Convertible',
+        year:'2023',
+        price:294000,
+        img:'https://images.dealer.com/ddc/vehicles/2023/Bentley/Continental%20GT/Convertible/trim_Base_3be2a1/color/Magnolia-6908-175%2C160%2C138-640-en_US.jpg?impolicy=resize&w=1024',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v8',
+        transmission:'8-speed automatic',
+        drivetrain:'AWD',
+        fuel:'gas',
+        exteriorcolor:'Magnolia',
+        interiorcolor:'Oak',
+        description:'Feel the wind in your hair with this 2023 Bentley Continental GT Convertible with 8-speed automatic transmission. All wheel drive allows you to drive in luxury in any terrain!'
+        },
+        
+        {
+        make:'Mercedes-Maybach',
+        model:'S680 4MATIC',
+        year:'2022',
+        price:260000,
+        img:'https://hips.hearstapps.com/hmg-prod/images/22c0062-001-source-1649187728.jpg?crop=0.822xw:0.617xh;0.0913xw,0.274xh&resize=640:*',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v12',
+        transmission:'8-speed automatic',
+        drivetrain:'AWD',
+        fuel:'gas',
+        exteriorcolor:'MANUFAKTUR Selenite Grey Magno(matte)',
+        interiorcolor:'Black',
+        description:'This gorgeous Maybach will have you riding in luxury and style. With a powerful V12 engine you\'ll accelerate 0-60 mph in 4.5 seconds. With a spacious interior the whole family can ride!'
+        },
+        
+        {
+        make:'Mercedes-Maybach',
+        model:'S580 4MATIC',
+        year:'2022',
+        price:230000,
+        img:'https://hips.hearstapps.com/hmg-prod/images/22c0062-001-source-1649187728.jpg?crop=1.00xw:0.564xh;0,0.239xh&resize=2048:*',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v8',
+        transmission:'8-speed automatic',
+        drivetrain:'AWD',
+        fuel:'gas',
+        exteriorcolor:'MANUFAKTUR Kalahari Gold/Onyx Black Metallic',
+        interiorcolor:'Black',
+        description:'Take the top off this 2022 S580 Maybach featuring a beautiful leather interior, a Bose sound system, and interior lighting. Cruise and arrive in style to any occasion!'
+        },
+        
+        {
+        make:'Bentley',
+        model:'Flying Spur Azure',
+        year:'2023',
+        price:425000,
+        img:'https://www.astonmartinwashingtondc.com/imagetag/3414/5/l/New-2023-Bentley-FLYING-SPUR-Azure-Hybrid-1673894233.jpg',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v8',
+        transmission:'8-speed automatic',
+        drivetrain:'AWD',
+        fuel:'gas',
+        exteriorcolor:'Blue',
+        interiorcolor:'Magnolia',
+        description:'The Flying Spur Azure brings together Bentley\'s exquisite hand craftsmanship with innovations in wellbeing technology to create a space that\'s awesome.'
+        },
+        
+        {
+        make:'Rolls Royce',
+        model:'Phantom',
+        year:'2023',
+        price:550000,
+        img:'https://i.ytimg.com/vi/l9zp2BBExuc/maxresdefault.jpg',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v12',
+        transmission:'8-speed automatic',
+        drivetrain:'RWD',
+        fuel:'gas',
+        exteriorcolor:'Blue',
+        interiorcolor:'White',
+        description: 'Effortlessly poised and immaculately composed to give you the extra space within which to experience the pinnacle of luxury and automotive greatness.'
+        },
+        
+        {
+        make:'Alfa Romeo',
+        model:'Stelvio Quadrifoglio',
+        year:'2023',
+        price:100000,
+        img:'https://pictures.dealer.com/s/selectalfaromeofcaar/0825/02357a1c9e0349e25d74ed2abfdce362x.jpg',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v6',
+        transmission:'8-speed automatic',
+        drivetrain:'AWD',
+        fuel:'gas',
+        exteriorcolor:'Ocra GT Tri-Coat',
+        interiorcolor:'Black',
+        description: 'Our 2023 Alfa Romeo Stelvio Quadrifoglio Q4 will catch everyone\'s attention in Ocra GT Tri-Coat! Powered by a Twin-turbocharged 2.9 Liter V6 designed by Ferrari producing 505hp paired with an 8 Speed Automatic transmission for exceptional performance. '
+        },
+        
+        {
+        make:'Porsche',
+        model:'Panamera Platinum Edition',
+        year:'2023',
+        price:110000,
+        img:'https://i.ytimg.com/vi/l9zp2BBExuc/maxresdefault.jpg',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v6',
+        transmission:'8-speed automatic',
+        drivetrain:'RWD',
+        fuel:'gas',
+        exteriorcolor:'Volcano Grey Metallic',
+        interiorcolor:'Black',
+        description: 'As the pinnacle of the Porsche lineup the Panamera brings a cornucopia of luxuries to its occupants. Rich-smelling leathers, stainless steel accents, and fancy glass and wood trim elements give the interior a posh vibe that you and your family will enjoy.'
+        },
+        
+        {
+        make:'BMW',
+        model:'740i Sedan',
+        year:'2023',
+        price:118000,
+        img:'https://www.bmwusa.com/content/dam/bmwusa/common/vehicles/2022/my23/7-series/sedan/mdp/mobile/BMW-MY23-7Series-DetailPage-Hero-Mobile.jpg',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'3.0-liter BMW TwinPower Turbo inline 6-cylinder',
+        transmission:'8-speed automatic',
+        drivetrain:'RWD',
+        fuel:'gas',
+        exteriorcolor:'Black',
+        interiorcolor:'Black',
+        description: 'An entirely new generation of the 7-series, long BMW\'s flagship sedan and the brand\'s most luxurious and advanced product, has debuted for the 2023 model year. '
+        },
+        {
+        make:'Genesis',
+        model:'G90 3.5T',
+        year:'2023',
+        price:100000,
+        img:'https://hips.hearstapps.com/hmg-prod/images/2023-genesis-g90-114-1659381781.jpg?crop=1.00xw:0.501xh;0,0.418xh&resize=768:*',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v6',
+        transmission:'8-speed automatic',
+        drivetrain:'AWD',
+        fuel:'gas',
+        exteriorcolor:'Verbier White',
+        interiorcolor:'Black Monotone',
+        description: 'Heavenly ride quality, hushed cabin, and generous standard luxury features are in this beautiful 2023 Genesis G90.'
+        },
+        
+        {
+        make:'Chevrolet',
+        model:'Corvette Z06',
+        year:'2023',
+        price:115000,
+        img:'https://hips.hearstapps.com/hmg-prod/images/2023-chevrolet-corvette-z07-101-1664802216.jpg?crop=0.462xw:0.519xh;0.229xw,0.269xh&resize=768:*',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v8',
+        transmission:'8-speed automatic',
+        drivetrain:'RWD',
+        fuel:'gas',
+        exteriorcolor:'Red',
+        interiorcolor:'Black',
+        description: 'The new Corvette Z06 receives a special engine that makes it sound like the supercars it\'s trying to dethrone. Its naturally aspirated 5.5-liter V-8 features a flat-plane crank and revs to 8500 rpm. '
+        },
+        
+        {
+        make:'Porsche',
+        model:'911 GT3 RS',
+        year:'2023',
+        price:225000,
+        img:'https://hips.hearstapps.com/hmg-prod/images/2023-porsche-911-gt3-rs-201-1660575621.jpg?crop=0.704xw:0.791xh;0.111xw,0.142xh&resize=768:*',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v6',
+        transmission:'7-speed automatic',
+        drivetrain:'RWD',
+        fuel:'gas',
+        exteriorcolor:'Gray',
+        interiorcolor:'Black',
+        description: 'Simply put, the 2023 Porsche 911 GT# RS is utterly transcendent. With a naturally aspirated 4.0-liter flat-six engine and producing 518 horsepower you can glide in style without sacrificing any of the luxury you seek.'
+        },
+        
+        {
+        make:'McLaren',
+        model:'Artura',
+        year:'2023',
+        price:250000,
+        img:'https://hips.hearstapps.com/hmg-prod/images/2023-mclaren-artura3-6400f567986ad.jpg?crop=0.473xw:0.531xh;0.242xw,0.334xh&resize=768:* ',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'Hybrid v6',
+        transmission:'8-speed automatic',
+        drivetrain:'RWD',
+        fuel:'gas',
+        exteriorcolor:'Blue',
+        interiorcolor:'White',
+        description: 'McLaren embraces a hybridized future of high performance with the sculptural 2023 Artura supercar. Performance estimates are highlighted by a zero-to-60-mph time of 2.6 seconds and a top speed of 205 mph.'
+        },
+        
+        {
+        make:'Bentley',
+        model:'Bentayga',
+        year:'2023',
+        price:215000,
+        img:'https://hips.hearstapps.com/hmg-prod/images/bentayga-ewb-10-1652106996.jpg?crop=0.803xw:0.905xh;0.147xw,0.0440xh&resize=768:*',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v8',
+        transmission:'8-speed automatic',
+        drivetrain:'AWD',
+        fuel:'gas',
+        exteriorcolor:'Champagne',
+        interiorcolor:'Camel',
+        description: 'Room for the whole family! This model comes with a rear-wheel steering system which helps shrink the SUV\'s turning radius.'
+        },
+        
+        {
+        make:'Audi',
+        model:'R8 Coupe',
+        year:'2023',
+        price:225000,
+        img:'https://hips.hearstapps.com/hmg-prod/images/2023-audi-r8-gt-front-three-quarters-motion-3-1664827965.jpg?crop=0.595xw:0.668xh;0.0705xw,0.224xh&resize=768:*',
+        inventory:'1',
+        condition:'brand-new',
+        engine:'v10',
+        transmission:'7-speed automatic',
+        drivetrain:'AWD',
+        fuel:'gas',
+        exteriorcolor:'Skyblue',
+        interiorcolor:'Onyx',
+        description: 'Effortlessly poised and immaculately composed to give you the extra space within which to experience the pinnacle of luxury and automotive greatness. Inside its spacious rear cabin, you can melt into a tranquil haven that is yours — and yours alone.'
         }
     ];
     const cars = await Promise.all(carsToCreate.map(createCar))
@@ -238,6 +505,18 @@ const cartToCreate = [
   {
     user_id:2,
     transactioncomplete:false
+  },
+  {
+    user_id:3,
+    transactioncomplete:false
+  },
+  {
+    user_id:4,
+    transactioncomplete:false
+  },
+  {
+    user_id:5,
+    transactioncomplete:false
   }
 ]
 const cart = await Promise.all(cartToCreate.map(createCart))
@@ -267,6 +546,26 @@ console.log("finished creating cart!")
         },
         {
           cart_id:2,
+          vehicle_id:1,
+          quantity:10
+        },
+        {
+          cart_id:3,
+          vehicle_id:1,
+          quantity:10
+        },
+        {
+          cart_id:3,
+          vehicle_id:1,
+          quantity:10
+        },
+        {
+          cart_id:4,
+          vehicle_id:1,
+          quantity:10
+        },
+        {
+          cart_id:4,
           vehicle_id:1,
           quantity:10
         }

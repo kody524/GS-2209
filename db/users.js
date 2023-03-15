@@ -27,7 +27,25 @@ async function createUser({ username, hashedPassword, email, firstname, lastname
 }
   
 
+async function getAllUsers() {
+ 
+  try{
+  
+   
+   const { rows } = await client.query(`
+    SELECT * FROM users;
+    `);
 
+   delete rows.password
+   
+    return rows;
+    
+  }catch(error){
+    console.log(error, 'failed to create user')
+}
+
+
+}
 
 
 
@@ -53,7 +71,7 @@ async function getUserById(userId) {
 }
 
 async function getUserByUsername(userName) {
-  console.log(userName)
+ 
   try{
     const { rows: [user]} = await client.query(`
     SELECT * 
@@ -123,6 +141,7 @@ return user
 module.exports = {
   createUser,
   getUserById,
+  getAllUsers,
   getUserByUsername,
   updateUsersInfo,
   deleteAccount,

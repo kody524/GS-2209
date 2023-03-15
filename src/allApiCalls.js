@@ -30,6 +30,22 @@ setSuccess(true)
   console.log(e,"register error")
 }
 }
+async function getAllUsers(setUsers){
+  try{
+const response = await fetch(`http://localhost:8080/api/users`,
+{
+  headers:{
+    "Content-Type": "application/json",
+  },
+ 
+  })
+  const data = await response.json()
+  setUsers(data)
+}catch(error){
+    console.log(error)
+  }
+}
+
  async function login(username,password,setLoginSuccess,setToken,setUserId){
   try{
 const response = await fetch("http://localhost:8080/api/users/login",
@@ -54,6 +70,9 @@ if (json.message === "Successful Login") {
   localStorage.setItem("token", json.token);
   localStorage.setItem("user", json.username);
   localStorage.setItem("id", json.user)
+  if(json.isadmin){
+    localStorage.setItem("isadmin",json.isadmin)
+  }
 }else{
   alert(json.message)
 }
@@ -64,7 +83,7 @@ if (json.message === "Successful Login") {
 }
 
 
- async function getMe(token){
+ async function getMe(token,setUser){
   try{
 const response = await fetch('http://localhost:8080/api/users/me',
 {
@@ -75,7 +94,7 @@ const response = await fetch('http://localhost:8080/api/users/me',
 
 })
 const data = await response.json();
-
+setUser(data)
   }catch(e){
     console.log(e,"error getting profile")
   }
@@ -134,7 +153,7 @@ alert(data.message)
     
     );
     const data = await response.json();
-  console.log(data)
+  
     setCars(data)
   }catch(error){
       console.log(error,"error getting cars")
@@ -264,7 +283,7 @@ const response = await data.json()
 if(!response.message){
 setCart(response)
 }
-console.log(response)
+
 }catch(e){
   console.log(e,"error getting cart")
 }
@@ -328,7 +347,7 @@ const data = await fetch(`http://localhost:8080/api/cartitems/${cartItemId}`,
   }
 })
 const response = await data.json();
-console.log(response)
+alert(response.message)
   }catch(e){
     console.log(e,"error deleting cart item")
   }
@@ -342,6 +361,7 @@ module.exports={
   deleteUser,
   getAllCars,
   getSingleCar,
+  getAllUsers,
 addCar,
 editCar,
 deleteCar,
