@@ -2,10 +2,17 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
-const {createUser,getUserByEmail,getUser,getUserById,getUserByUsername,updateUsersInfo, deleteAccount}=require('../db/users')
+const {createUser,getUserByEmail,getAllUsers,getUserById,getUserByUsername,updateUsersInfo, deleteAccount}=require('../db/users')
 const{getRatingsByUser}=require('../db/ratings')
 
-
+router.get('/',async(req,res,next)=>{
+    try{
+const users = await getAllUsers()
+res.send(users)
+    }catch({name,message}){
+next({name,message})
+    }
+})
 router.post('/register',async(req,res,next)=>{
     const { username, password,email,firstname,lastname,street,city,state,zip,phone}=req.body;
     console.log("1",firstname,"2",lastname)
@@ -55,7 +62,11 @@ router.post('/login',async(req,res,next)=>{
     console.log(req.body)
     const { username, password }=req.body;
     const message = "you're logged in!";
+    const user =  await getUserByUsername(username)
     //needs username and password 
+    if(user===undefined){
+        res.send({message:'User doesnt Exist'})
+    }
     if(!username || !password ){
         res.send({
             name:"MissingCredentilasError",
@@ -63,16 +74,16 @@ router.post('/login',async(req,res,next)=>{
         })
     }
     try{
-        const user =  await getUserByUsername(username)
+        
         const isValid = await bcrypt.compare(password,user.password)
-
+        
         if(user&&isValid){
             const token = jwt.sign({
             
                 id:user.id,
                 username:user.username
             },"luxury");
-            res.send({message:"Successful Login",user:user.id,username:user.username,token});
+            res.send({message:"Successful Login",user:user.id,username:user.username,isadmin:user.isadmin,token});
         }else{
             res.send({
                 name:"IncorrectCredentialsError",

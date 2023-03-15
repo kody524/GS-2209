@@ -9,9 +9,9 @@ export function Cars({cars, setCars,loginSuccess}){
 useEffect(() => {
    
     getAllCars(setCars)
-    },[setCars]);
+    },[]);
 
-console.log(cars)
+
 const [searchQuery, updateSearchQuery] = useState('')
 let carsToDisplay = cars;
 function carMatches(car, text) {
