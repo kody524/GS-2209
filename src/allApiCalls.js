@@ -219,7 +219,6 @@ alert(response.message)
   model,
   year,
   price,
-  inventory,
   condition,
   engine,
   transmission,
@@ -240,7 +239,6 @@ const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
     model:model,
     year:year,
     price:price,
-    inventory:inventory,
     condition:condition,
     engine:engine,
     transmission:transmission,
@@ -253,6 +251,7 @@ const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
 })
 
 const response = await data.json();
+alert(response.message)
 
   }catch(e){
     console.log(e,"error updating car ")
@@ -268,6 +267,7 @@ const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
   }
 })
 const response = await data.json()
+alert(response.message)
   }catch(e){
     console.log(e,"error deleting car")
   }

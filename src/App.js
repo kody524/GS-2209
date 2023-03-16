@@ -5,7 +5,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SignIn } from "./Components/Login";
 import { SignUp } from "./Components/Register";
-
+import EditCar from "./Components/Editcar";
 import NavBar from './Components/NavBar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Login } from "@mui/icons-material";
@@ -52,6 +52,7 @@ function App() {
   const[success,setSuccess]=useState(false)
 const[loginSuccess,setLoginSuccess]=useState(false)
 const[car,setCar]=useState([])
+const[carId,setCarId]=useState(0)
 
 
   return (
@@ -76,7 +77,12 @@ const[car,setCar]=useState([])
       ></Route>
       <Route 
       path="/cars"
-      element={<Cars cars={cars} setCars={setCars} car={car} setCar={setCar} loginSuccess={loginSuccess}/>}
+      element={<Cars cars={cars} setCars={setCars} car={car} setCar={setCar} setCarId={setCarId} loginSuccess={loginSuccess}/>}
+      >
+      </Route>
+      <Route
+      path="/editcar"
+      element={<EditCar carId={carId} car={car} setCar={setCar}/>}
       >
       </Route>
       <Route 

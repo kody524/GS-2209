@@ -1,11 +1,12 @@
 import React, {useState,useEffect} from "react";
-import { getAllCars, getSingleCar, addToCart } from "../allApiCalls";
+import { getAllCars, getSingleCar, addToCart , deleteCar} from "../allApiCalls";
 import {Card, Grid, Typography, Button, CardContent, Dialog, Modal, CardActionArea, ButtonGroup} from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import NavBar from "./NavBar";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { borderRadius, flexbox } from "@mui/system";
+import EditCar from "./Editcar";
 import styles from './Cars.module.css'
 const style = {
     position: 'absolute',
@@ -26,7 +27,8 @@ const style = {
     borderRadius: "15px",
     direction: "row"
   };
-export function Cars({cars, setCars, car, setCar, loginSuccess}){
+export function Cars({cars, setCars, car, setCar,setCarId,loginSuccess}){
+    const isAdmin = localStorage.getItem('isadmin')
     const {carId} = useParams()
     const [searchValue, setSearchValue] = useState('')
     const [filteredCars, setFilteredCars] = useState([])
@@ -42,11 +44,16 @@ useEffect(() => {
 }, [searchValue])
     const id = localStorage.getItem("id")
     const [open, setOpen] = React.useState(false);
+    const[edit,setEdit]=useState(false)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const editHandle=()=>setEdit(!edit)
 return(
+    
 <>
+{edit?<Navigate to='/editcar'/>:null}
 <NavBar loginSuccess={loginSuccess}></NavBar>
+
 <Modal
     open={open}
     onClose={()=>{handleClose()
@@ -59,20 +66,21 @@ return(
                   <Typography>{car.make}</Typography>
                   <Typography>{car.model}</Typography>
                   <Typography>Year: {car.description}</Typography>
-                  <Typography>Inventory: {car.make}</Typography>
-                  <Typography>Condition: {car.make}</Typography>
-                  <Typography>Engine: {car.make}</Typography>
-                  <Typography>Transmission: {car.make}</Typography>
-                  <Typography>Drivetrain: {car.make}</Typography>
-                  <Typography>Fuel Type: {car.make}</Typography>
-                  <Typography>Exterior Color: {car.make}</Typography>
-                  <Typography>Interior Color: {car.make}</Typography>
-                  <Typography>Description: {car.make}</Typography>
+                  <Typography>Inventory: {car.inventory}</Typography>
+                  <Typography>Condition: {car.condition}</Typography>
+                  <Typography>Engine: {car.engine}</Typography>
+                  <Typography>Transmission: {car.transmission}</Typography>
+                  <Typography>Drivetrain: {car.drivetrain}</Typography>
+                  <Typography>Fuel Type: {car.fuel}</Typography>
+                  <Typography>Exterior Color: {car.exteriorcolor}</Typography>
+                  <Typography>Interior Color: {car.interiorcolor}</Typography>
+                  <Typography>Description: {car.description}</Typography>
                   <Typography>Price: {car.price}</Typography>
                     <Button sx={{mr:2}} variant="contained" onClick={()=>{
                     handleClose()
                   }}>Return to All Vehicles</Button>
                     {id?<Button variant="contained" onClick={()=>{addToCart(id,false,car.id,1)}}>Add to Cart</Button>:null}
+                    
       </Typography>
     </Card>
   </Modal>
@@ -107,6 +115,13 @@ return(
                                 Add To Cart
                                 <AddShoppingCartIcon/>
                             </Button>:null}
+                            {isAdmin?<Button variant="contained" onClick={()=>{
+                                editHandle()
+                                setCarId(cars.id)
+                            }}>Edit Car</Button>:null}
+                            {isAdmin?<Button variant="contained" onClick={()=>{
+                                deleteCar(cars.id)
+                            }}>Delete Car</Button>:null}
                             </ButtonGroup>
                         </CardContent>
             </Card>);
