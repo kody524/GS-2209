@@ -96,13 +96,13 @@ function sum(){
             <Tabs
               sx={{ marginLeft: "auto" }}
             >
-              <Tab href="http://localhost:3000/" label='Home'/>
-              <Tab href="http://localhost:3000/cars" label='Cars'/>
-              {admin?<Tab href="http://localhost:3000/admin" label='Admin'/>:null}
+              <Tab href="http://localhost:3002/" label='Home'/>
+              <Tab href="http://localhost:3002/cars" label='Cars'/>
+              {admin?<Tab href="http://localhost:3002/admin" label='Admin'/>:null}
             </Tabs>
             {id?(<>
              
-             <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3000/" onClick={()=>{
+             <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3002/" onClick={()=>{
               localStorage.removeItem('id')
               localStorage.removeItem('user')
               localStorage.removeItem('token')
@@ -116,9 +116,9 @@ function sum(){
                Cart
               </Button>
              </>):(<>
-            <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3000/login">LogIn
+            <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3002/login">LogIn
             </Button>
-            <Button sx={{ padding: "8px", margin: "10px" }} variant="contained" href="http://localhost:3000/register">
+            <Button sx={{ padding: "8px", margin: "10px" }} variant="contained" href="http://localhost:3002/register">
              Register
             </Button>
             </>)}
