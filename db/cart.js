@@ -25,13 +25,13 @@ WHERE id=$3
         throw error
     }
 }
-async function getCartsByUser(userId) {
+async function getCartsByUser(user_id) {
     try {
         const {rows:[cart]} = await client.query(`
             SELECT *
             FROM cart
             WHERE user_id = $1;
-        `, [userId]);
+        `, [user_id]);
         
         return getCartItemsByCartId(cart.id)
     } catch (error) {

@@ -51,7 +51,7 @@ function App() {
   const[cars,setCars]=useState([])
   const[success,setSuccess]=useState(false)
 const[loginSuccess,setLoginSuccess]=useState(false)
-
+const[car,setCar]=useState([])
 
 
   return (
@@ -76,7 +76,7 @@ const[loginSuccess,setLoginSuccess]=useState(false)
       ></Route>
       <Route 
       path="/cars"
-      element={<Cars cars={cars} setCars={setCars} loginSuccess={loginSuccess}/>}
+      element={<Cars cars={cars} setCars={setCars} car={car} setCar={setCar} loginSuccess={loginSuccess}/>}
       >
       </Route>
       <Route 

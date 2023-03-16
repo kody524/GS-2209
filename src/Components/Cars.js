@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from "react";
-import { getAllCars, getSingleCar } from "../allApiCalls";
+import { getAllCars, getSingleCar, addToCart } from "../allApiCalls";
 import {Card, Grid, Typography, Button, CardContent, Dialog, Modal, CardActionArea, ButtonGroup} from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -28,38 +28,22 @@ const style = {
   };
 export function Cars({cars, setCars, car, setCar, loginSuccess}){
     const {carId} = useParams()
+    const [searchValue, setSearchValue] = useState('')
+    const [filteredCars, setFilteredCars] = useState([])
 useEffect(() => {
     getAllCars(setCars).then(cars);
     },[]);
-// useEffect(() => {
-//     getSingleCar(carId, setCar)
-//     }, [setCar, carId])
+useEffect(() => {
+    setFilteredCars(cars.filter(elem => {
+        return elem.make.toLowerCase().includes(searchValue) ||
+        elem.model.toLowerCase().includes(searchValue)
+        })
+    )
+}, [searchValue])
     const id = localStorage.getItem("id")
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [searchQuery, updateSearchQuery] = useState('')
-let carsToDisplay = cars;
-function carMatches(car, text) {
-    const searchTerm = text.toLowerCase();
-    const {
-        make,
-        model,
-        year
-    } = car;
-    const toMatch = [make, model, year];
-    for (const field of toMatch) {
-        if (field.toString().toLowerCase().includes(searchTerm)) {
-            return true
-        }
-    }
-    return false
-};
-if(searchQuery.length > 0) {
-    carsToDisplay = cars.filter((car) => carMatches(car, searchQuery))
-} else {
-    carsToDisplay = cars
-}
 return(
 <>
 <NavBar loginSuccess={loginSuccess}></NavBar>
@@ -72,23 +56,23 @@ return(
       <Typography  sx={{ mt: 2 }}>
             <h2>Vehicle Details</h2>
                   <img src={cars.img} alt={cars.make}></img>
-                  <Typography>{cars.make}</Typography>
-                  <Typography>{cars.model}</Typography>
-                  <Typography>Year: {cars.description}</Typography>
-                  <Typography>Inventory: {cars.make}</Typography>
-                  <Typography>Condition: {cars.make}</Typography>
-                  <Typography>Engine: {cars.make}</Typography>
-                  <Typography>Transmission: {cars.make}</Typography>
-                  <Typography>Drivetrain: {cars.make}</Typography>
-                  <Typography>Fuel Type: {cars.make}</Typography>
-                  <Typography>Exterior Color: {cars.make}</Typography>
-                  <Typography>Interior Color: {cars.make}</Typography>
-                  <Typography>Description: {cars.make}</Typography>
-                  <Typography>Price: {cars.price}</Typography>
+                  <Typography>{car.make}</Typography>
+                  <Typography>{car.model}</Typography>
+                  <Typography>Year: {car.description}</Typography>
+                  <Typography>Inventory: {car.make}</Typography>
+                  <Typography>Condition: {car.make}</Typography>
+                  <Typography>Engine: {car.make}</Typography>
+                  <Typography>Transmission: {car.make}</Typography>
+                  <Typography>Drivetrain: {car.make}</Typography>
+                  <Typography>Fuel Type: {car.make}</Typography>
+                  <Typography>Exterior Color: {car.make}</Typography>
+                  <Typography>Interior Color: {car.make}</Typography>
+                  <Typography>Description: {car.make}</Typography>
+                  <Typography>Price: {car.price}</Typography>
                     <Button sx={{mr:2}} variant="contained" onClick={()=>{
                     handleClose()
                   }}>Return to All Vehicles</Button>
-                    <Button variant="contained">Add to Cart</Button>
+                    {id?<Button variant="contained" onClick={()=>{addToCart(id,false,car.id,1)}}>Add to Cart</Button>:null}
       </Typography>
     </Card>
   </Modal>
@@ -97,12 +81,14 @@ return(
 <input
     type = "text"
     placeholder='search cars'
-    value = {searchQuery}
-    onChange = {(event) => {updateSearchQuery(event.target.value)}}
+    value = {searchValue}
+    onChange = {(event) => {setSearchValue(event.target.value)}}
 />
+{!searchValue ?
 <Grid  item container xs={6} className={styles.carContainer}>
 {cars.map((cars) => {
-    return (<>
+   
+    return(
             <Card key={cars.id} sx={style1}>
                         <CardContent>
                             <img src={cars.img} alt={cars.make} style={{ alignitems:"center", maxWidth: '50%', maxheight: '50%' }}/>
@@ -115,16 +101,40 @@ return(
                             <ButtonGroup>
                                 <Button variant="contained" sx={{mr:2, ml:2, borderRadius:3}} onClick={()=>{
                                 handleOpen()
-                                getSingleCar(cars.id)}}
+                                getSingleCar(cars.id,setCar)}}
                                 >Vehicle Details</Button>
-                                <Button variant="contained"sx={{mr:2, borderRadius:3}}>
+                               {id? <Button variant="contained"sx={{mr:2, borderRadius:3}} onClick={()=>{addToCart(id,false,cars.id,1)}}>
                                 Add To Cart
                                 <AddShoppingCartIcon/>
-                            </Button>
+                            </Button>:null}
                             </ButtonGroup>
                         </CardContent>
-            </Card>
-   </> );
-})}</Grid></>)
+            </Card>);
+})}</Grid>:
+<Grid  item container xs={6} className={styles.carContainer}>
+{filteredCars.map((cars) => {
+    return(
+            <Card key={cars.id} sx={style1}>
+                        <CardContent>
+                            <img src={cars.img} alt={cars.make} style={{ alignitems:"center", maxWidth: '50%', maxheight: '50%' }}/>
+                        </CardContent>
+                        <CardContent>
+                            <Typography variant="h4">{cars.make}</Typography>
+                            <Typography variant="h5">{cars.model}</Typography>
+                            <Typography variant="h6">Price: ${cars.price}</Typography>
+                            {/* <Typography variant="body1" nowrap="false" width="30vw" >Description: {cars.description}</Typography> */}
+                            <ButtonGroup>
+                                <Button variant="contained" sx={{mr:2, ml:2, borderRadius:3}} onClick={()=>{
+                                handleOpen()
+                                getSingleCar(cars.id,setCar)}}
+                                >Vehicle Details</Button>
+                                {id?<Button variant="contained"sx={{mr:2, borderRadius:3}} onClick={()=>{addToCart(id,false,cars.id,1)}}>
+                                Add To Cart
+                                <AddShoppingCartIcon/>
+                            </Button>:null}
+                            </ButtonGroup>
+                        </CardContent>
+            </Card>);
+})}</Grid>}</>)
 }
 export default Cars;
