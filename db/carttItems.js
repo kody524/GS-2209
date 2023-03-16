@@ -1,6 +1,7 @@
 const client = require("./client")
 
 async function addItemsToCart({cart_id,vehicle_id,quantity}){
+   
     try{
 const{rows:[cart]}= await client.query(`
 INSERT INTO cart_items(cart_id,vehicle_id,quantity)
@@ -13,12 +14,14 @@ return cart
     }
 }
 async function getCartItemsByCartId(cart_id) {
+    
     try {
         const {rows: cartItems} = await client.query(`
         SELECT cart_items.*, cars.make,cars.model,cars.price FROM cart_items
         JOIN cars ON cars.id=cart_items.vehicle_id
         WHERE cart_id =$1;
         `, [cart_id]);
+        
         return cartItems;
     } catch (error) {
         throw error;

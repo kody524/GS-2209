@@ -274,7 +274,7 @@ const response = await data.json()
 }
  async function getCart(userId,setCart){
 try{
-const data = await fetch(`http://localhost:8080/api/cart/${userId}`,
+const data = await fetch(`http://localhost:8080/api/cartitems/${userId}`,
 {
   headers:{
     "Content-Type": "application/json",
@@ -306,7 +306,7 @@ const data = await fetch(`http://localhost:8080/api/cart`,{
   })
 })
 const response = await data.json()
-console.log(response)
+alert(response.message)
   }catch(e){
     console.log(e)
   }

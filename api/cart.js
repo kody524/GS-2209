@@ -32,22 +32,23 @@ router.post('/',async(req,res,next)=>{
     const{user_id,transactioncomplete,vehicle_id,quantity}=req.body
 
     const checkForCart = await getCartsByUser(user_id)
- console.log(checkForCart,user_id)
+console.log('1',checkForCart)
     try{
-if(checkForCart===undefined||checkForCart.length<1){
+if(checkForCart===undefined){
     console.log('hi')
     const createInitialCart = await createCart({user_id,transactioncomplete})
-    
+    console.log(createInitialCart)
     const cart_id = createInitialCart.id
   
     const addToCart = await addItemsToCart({cart_id,vehicle_id,quantity})
     res.send({addToCart,message:"item added"})
-}else if(checkForCart){
-   const cart_id = checkForCart[0].cart_id
+}else{
+    console.log('hi1')
+   const cart_id = checkForCart.id
    
 const add = await addItemsToCart({cart_id,vehicle_id,quantity})
-console.log(add)
-res.send({add,message:"item added 1"})
+
+res.send({add,message:"item added "})
 }
 
     }catch(error){

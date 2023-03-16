@@ -1,11 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const {getCartItemsByCartId,updateCartItem, deleteCartItem}=require('../db/carttItems')
+const {getCartsByUser}=require('../db/cart')
 
-router.get('/:cartId',async(req,res,next)=>{
-    const {cartId}=req.params;
+router.get('/:user_Id',async(req,res,next)=>{
+    const {user_Id}=req.params;
     try{
-const getCartItems = await getCartItemsByCartId(cartId)
+const getInitialCart = await getCartsByUser(user_Id)
+if(!getInitialCart){
+    res.send({message:"no cart exists"})
+}
+const cart_id = getInitialCart.id
+const getCartItems = await getCartItemsByCartId(cart_id)
+
 res.send(getCartItems)
     }catch({name,message}){
         next({name,message})

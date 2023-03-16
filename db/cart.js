@@ -26,14 +26,17 @@ WHERE id=$3
     }
 }
 async function getCartsByUser(user_id) {
+    
     try {
         const {rows:[cart]} = await client.query(`
             SELECT *
             FROM cart
             WHERE user_id = $1;
         `, [user_id]);
-        
-        return getCartItemsByCartId(cart.id)
+      
+       const cart_id = cart.id
+     
+        return cart
     } catch (error) {
         console.log(error);
     }
