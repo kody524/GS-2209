@@ -159,7 +159,7 @@ alert(data.message)
       console.log(error,"error getting cars")
   }
 }
- async function getSingleCar(carId){
+ async function getSingleCar(carId,setCar){
   try{
 const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
 {
@@ -168,6 +168,7 @@ const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
   }
 })
 const response = await data.json()
+setCar(response)
   }catch(e){
     console.log(e,"error getting car")
   }
@@ -288,6 +289,28 @@ setCart(response)
   console.log(e,"error getting cart")
 }
 }
+async function addToCart(user_id,transactioncomplete,vehicle_id,quantity){
+  console.log(user_id,vehicle_id,quantity,transactioncomplete)
+  try{
+const data = await fetch(`http://localhost:8080/api/cart`,{
+  method:"POST",
+  headers:{
+   
+    "Content-Type": "application/json",
+  },
+  body:JSON.stringify({
+    user_id:user_id,
+    transactioncomplete:transactioncomplete,
+    vehicle_id:vehicle_id,
+    quantity:quantity
+  })
+})
+const response = await data.json()
+console.log(response)
+  }catch(e){
+    console.log(e)
+  }
+}
  async function updateCart(userId,date_purchased,transactioncomplete){
   try{
 const data = await fetch(`http://localhost:8080/api/cart/${userId}`,
@@ -363,6 +386,7 @@ module.exports={
   getSingleCar,
   getAllUsers,
 addCar,
+addToCart,
 editCar,
 deleteCar,
 getCart,

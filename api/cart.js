@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const jwt = require('jsonwebtoken')
 const{getUserById}=require('../db/users')
-const{getCartsByUser,deleteCart,updateCart}=require('../db/cart');
+const{addItemsToCart}=require('../db/carttItems')
+const{getCartsByUser,deleteCart,updateCart, createCart}=require('../db/cart');
 const { ElevatorSharp } = require("@mui/icons-material");
 
 
@@ -25,6 +26,34 @@ if(user===undefined){
    }catch(error){
     console.log(error)
    }
+})
+
+router.post('/',async(req,res,next)=>{
+    const{user_id,transactioncomplete,vehicle_id,quantity}=req.body
+
+    const checkForCart = await getCartsByUser(user_id)
+ console.log(checkForCart,user_id)
+    try{
+if(checkForCart===undefined||checkForCart.length<1){
+    console.log('hi')
+    const createInitialCart = await createCart({user_id,transactioncomplete})
+    
+    const cart_id = createInitialCart.id
+  
+    const addToCart = await addItemsToCart({cart_id,vehicle_id,quantity})
+    res.send({addToCart,message:"item added"})
+}else if(checkForCart){
+   const cart_id = checkForCart[0].cart_id
+   
+const add = await addItemsToCart({cart_id,vehicle_id,quantity})
+console.log(add)
+res.send({add,message:"item added 1"})
+}
+
+    }catch(error){
+        console.log(error)
+    }
+
 })
 router.patch('/:userId',async(req,res,next)=>{
     const{userId}=req.params;
