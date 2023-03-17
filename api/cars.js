@@ -14,9 +14,10 @@ next({name,message})
 })
 // add to cars table
 router.post('/',async(req,res,next)=>{
-    const {make,model,year,price,inventory,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description}=req.body;
+    const {make,model,year,price,img,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description}=req.body;
+    console.log(description)
     try{
-const create = await createCar({make,model,year,price,inventory,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description})
+const create = await createCar({make,model,year,price,img,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description})
 if(create){
     res.send({message:"Car Created",create})
 }else{
