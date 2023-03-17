@@ -13,6 +13,7 @@ import Home from "./Components/Home";
 import AdminEditCar from "./Components/Admin";
 import Admin from "./Components/Admin";
 import Checkout from "./Components/Checkout";
+import AddCar from "./Components/AddCar";
 
 const theme = createTheme({
   palette: {
@@ -95,6 +96,8 @@ const[carId,setCarId]=useState(0)
         path='/checkout'
         element={<Checkout/>}
         >
+        </Route>
+        <Route path='/addcar'element={<AddCar/>}>
         </Route>
      </Routes>
      </BrowserRouter>

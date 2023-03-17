@@ -45,12 +45,14 @@ useEffect(() => {
     const id = localStorage.getItem("id")
     const [open, setOpen] = React.useState(false);
     const[edit,setEdit]=useState(false)
+    const[add,setAdd]=useState(false)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const editHandle=()=>setEdit(!edit)
 return(
     
 <>
+{add?<Navigate to='/addcar'/>:null}
 {edit?<Navigate to='/editcar'/>:null}
 <NavBar loginSuccess={loginSuccess}></NavBar>
 
@@ -92,6 +94,7 @@ return(
     value = {searchValue}
     onChange = {(event) => {setSearchValue(event.target.value)}}
 />
+{isAdmin?<Button onClick={()=>setAdd(!add)} variant="contained">Add Car</Button>:null}
 {!searchValue ?
 <Grid  item container xs={6} className={styles.carContainer}>
 {cars.map((cars) => {
@@ -147,6 +150,13 @@ return(
                                 Add To Cart
                                 <AddShoppingCartIcon/>
                             </Button>:null}
+                            {isAdmin?<Button variant="contained" onClick={()=>{
+                                editHandle()
+                                setCarId(cars.id)
+                            }}>Edit Car</Button>:null}
+                            {isAdmin?<Button variant="contained" onClick={()=>{
+                                deleteCar(cars.id)
+                            }}>Delete Car</Button>:null}
                             </ButtonGroup>
                         </CardContent>
             </Card>);

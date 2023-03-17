@@ -12,14 +12,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import NavBar from "./NavBar";
-import { getSingleCar ,editCar} from '../allApiCalls';
+import {addCar} from '../allApiCalls';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 
 const theme = createTheme();
 
-export default function EditCar({carId,car,setCar}) {
+export default function AddCar() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -29,6 +29,7 @@ export default function EditCar({carId,car,setCar}) {
   const[model,setModel]=React.useState('')
   const[year,setYear]=React.useState('')
   const[price,setPrice]=React.useState('')
+  const [img,setImg]=React.useState('')
   const[condition,setCondition]=React.useState('')
   const[engine,setEngine]=React.useState('')
   const[transmission,setTransmission]=React.useState('')
@@ -37,9 +38,7 @@ export default function EditCar({carId,car,setCar}) {
   const[exteriorcolor,setExteriorColor]=React.useState('')
   const[interiorcolor,setInteriorColor]=React.useState('')
   const[description,setDescription]=React.useState('')
-React.useEffect(()=>{
-getSingleCar(carId,setCar)
-},[])
+
 
   return (<>
     <NavBar/>
@@ -56,7 +55,7 @@ getSingleCar(carId,setCar)
         >
           
           <Typography component="h1" variant="h5">
-            Edit Car
+            Add Car
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -67,7 +66,7 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   id="firstName"
-                  label={car.make}
+                  label='Make'
                   autoFocus
                   onChange={(e)=>setMake(e.target.value)}
                 />
@@ -77,7 +76,7 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   id="lastName"
-                  label={car.model}
+                  label='Model'
                   name="lastName"
                   autoComplete="family-name"
                   onChange={(e)=>setModel(e.target.value)}
@@ -88,7 +87,7 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   id="email"
-                  label={car.year}
+                  label="Year"
                   name="email"
                   autoComplete="email"
                   onChange={(e)=>setYear(e.target.value)}
@@ -99,7 +98,7 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   name="password"
-                  label={car.price}
+                  label='Price'
                 
                   autoComplete="new-password"
                   onChange={(e)=>setPrice(e.target.value)}
@@ -110,7 +109,18 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   name="password"
-                  label={car.condition}
+                  label='Image'
+                
+                  autoComplete="new-password"
+                  onChange={(e)=>setImg(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label='Condition'
                 
                   autoComplete="new-password"
                   onChange={(e)=>setCondition(e.target.value)}
@@ -121,7 +131,7 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   name="password"
-                  label={car.engine}
+                  label='Engine'
                  
                   autoComplete="new-password"
                   onChange={(e)=>setEngine(e.target.value)}
@@ -132,7 +142,7 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   name="password"
-                  label={car.transmission}
+                  label='Transmission'
                  
                   autoComplete="new-password"
                   onChange={(e)=>setTransmission(e.target.value)}
@@ -143,7 +153,7 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   name="password"
-                  label={car.drivetrain}
+                  label='Drivetrain'
                  
                   autoComplete="new-password"
                   onChange={(e)=>setDrivetrain(e.target.value)}
@@ -154,7 +164,7 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   name="password"
-                  label={car.fuel}
+                  label='Fuel'
               
                   autoComplete="new-password"
                   onChange={(e)=>setFuel(e.target.value)}
@@ -165,7 +175,7 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   name="password"
-                  label={car.exteriorcolor}
+                  label='ExteriorColor'
                  
                   autoComplete="new-password"
                   onChange={(e)=>setExteriorColor(e.target.value)}
@@ -176,7 +186,7 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   name="password"
-                  label={car.interiorcolor}
+                  label='InteriorColor'
                  
                   autoComplete="new-password"
                   onChange={(e)=>setInteriorColor(e.target.value)}
@@ -187,7 +197,7 @@ getSingleCar(carId,setCar)
                   required
                   fullWidth
                   name="password"
-                  label={car.description}
+                  label='Description'
                
                   autoComplete="new-password"
                   onChange={(e)=>setDescription(e.target.value)}
@@ -200,10 +210,10 @@ getSingleCar(carId,setCar)
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               onClick={()=>{
-                editCar(carId,make,model,year,price,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description)
+                addCar(make,model,year,price,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description)
               }}
             >
-              Edit Car
+              Add Car
             </Button>
            
           </Box>
