@@ -2,6 +2,7 @@ import NavBar from './NavBar';
 import Search from './Search';
 import Footer from './Footer';
 import Carousel from './Carousel';
+import CarCarousel from './CarCarousel';
 
 
 const Home = props => {
@@ -10,6 +11,7 @@ const Home = props => {
             <NavBar />
             <Search />
             <Carousel />
+            <CarCarousel />
             <Footer />
         </div>
     )
