@@ -31,10 +31,10 @@ export default function Footer() {
           <Link href="/" color="inherit" underline="none" mr={2}>
             Home
           </Link>
-          <Link href="/Cars" color="inherit" underline="none" mr={2}>
+          <Link href="/cars" color="inherit" underline="none" mr={2}>
             Cars
           </Link>
-          <Link href="/Login" color="inherit" underline="none">
+          <Link href="/login" color="inherit" underline="none">
             Login
           </Link>
         </Box>
