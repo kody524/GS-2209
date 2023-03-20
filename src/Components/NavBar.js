@@ -96,9 +96,9 @@ function sum(){
             <Tabs
               sx={{ marginLeft: "auto" }}
             >
-              <Tab href="http://localhost:3000/" label='Home'/>
-              <Tab href="http://localhost:3000/cars" label='Cars'/>
-              {admin?<Tab href="http://localhost:3000/admin" label='Admin'/>:null}
+              <Tab href="/" label='Home'/>
+              <Tab href="/cars" label='Cars'/>
+              {admin?<Tab href="/admin" label='Admin'/>:null}
             </Tabs>
             {id?(<>
              
@@ -116,9 +116,9 @@ function sum(){
                Cart
               </Button>
              </>):(<>
-            <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="http://localhost:3000/login">LogIn
+            <Button sx={{ padding: "8px", marginLeft: "auto" }} variant="contained" href="/login">LogIn
             </Button>
-            <Button sx={{ padding: "8px", margin: "10px" }} variant="contained" href="http://localhost:3000/register">
+            <Button sx={{ padding: "8px", margin: "10px" }} variant="contained" href="/register">
              Register
             </Button>
             </>)}
