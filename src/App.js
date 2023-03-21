@@ -59,6 +59,7 @@ const[carId,setCarId]=useState(0)
   return (
    
     <>
+    <ThemeProvider theme={theme}>
      <BrowserRouter>
      <Routes>
       <Route
@@ -101,6 +102,7 @@ const[carId,setCarId]=useState(0)
         </Route>
      </Routes>
      </BrowserRouter>
+     </ThemeProvider>
     </>
   );
 }

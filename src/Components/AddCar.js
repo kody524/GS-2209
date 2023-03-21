@@ -39,7 +39,7 @@ export default function AddCar() {
   const[interiorcolor,setInteriorColor]=React.useState('')
   const[description,setDescription]=React.useState('')
 
-
+console.log(img)
   return (<>
     <NavBar/>
     <ThemeProvider theme={theme}>
@@ -210,7 +210,7 @@ export default function AddCar() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               onClick={()=>{
-                addCar(make,model,year,price,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description)
+                addCar(make,model,year,price,img,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description)
               }}
             >
               Add Car

@@ -29,6 +29,7 @@ export default function EditCar({carId,car,setCar}) {
   const[model,setModel]=React.useState('')
   const[year,setYear]=React.useState('')
   const[price,setPrice]=React.useState('')
+  const[img,setImg]=React.useState('')
   const[condition,setCondition]=React.useState('')
   const[engine,setEngine]=React.useState('')
   const[transmission,setTransmission]=React.useState('')
@@ -103,6 +104,17 @@ getSingleCar(carId,setCar)
                 
                   autoComplete="new-password"
                   onChange={(e)=>setPrice(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label={car.img}
+                
+                  autoComplete="new-password"
+                  onChange={(e)=>setImg(e.target.value)}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -200,7 +212,7 @@ getSingleCar(carId,setCar)
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               onClick={()=>{
-                editCar(carId,make,model,year,price,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description)
+                editCar(carId,make,model,year,price,img,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description)
               }}
             >
               Edit Car

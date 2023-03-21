@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from "react";
 import { getAllCars, getSingleCar, addToCart , deleteCar} from "../allApiCalls";
-import {Card, Grid, Typography, Button, CardContent, Dialog, Modal, CardActionArea, ButtonGroup} from "@mui/material";
+import {Card, Grid, TextField, Typography, Button, CardContent, Dialog, Modal, CardActionArea, ButtonGroup} from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import NavBar from "./NavBar";
@@ -8,6 +8,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { borderRadius, flexbox } from "@mui/system";
 import EditCar from "./Editcar";
 import styles from './Cars.module.css'
+import SearchIcon from '@mui/icons-material/Search';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -64,20 +65,24 @@ return(
     <Card sx={style}>
       <Typography  sx={{ mt: 2 }}>
             <h2>Vehicle Details</h2>
-                  <img src={cars.img} alt={cars.make}></img>
-                  <Typography>{car.make}</Typography>
-                  <Typography>{car.model}</Typography>
-                  <Typography>Year: {car.description}</Typography>
-                  <Typography>Inventory: {car.inventory}</Typography>
-                  <Typography>Condition: {car.condition}</Typography>
-                  <Typography>Engine: {car.engine}</Typography>
-                  <Typography>Transmission: {car.transmission}</Typography>
-                  <Typography>Drivetrain: {car.drivetrain}</Typography>
-                  <Typography>Fuel Type: {car.fuel}</Typography>
-                  <Typography>Exterior Color: {car.exteriorcolor}</Typography>
-                  <Typography>Interior Color: {car.interiorcolor}</Typography>
-                  <Typography>Description: {car.description}</Typography>
-                  <Typography>Price: {car.price}</Typography>
+            <Card style ={style1} sx={{ alignitems:"center", justifyContent:"center", objectFit:"contain", display:"flex", maxWidth:"75%", flexFlow:"column" }}>
+                  <img src={car.img} alt={car.make} sx={{alignitems:"center", justifyContent:"center"}}></img>
+            </Card>
+            <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
+                  <Typography><h2>{car.make}</h2></Typography>
+                  <Typography><h3>{car.model}</h3></Typography>
+            </div>
+                  <Typography><b>Year:</b> {car.description}</Typography>
+                  <Typography><b>Inventory:</b> {car.inventory}</Typography>
+                  <Typography><b>Condition:</b> {car.condition}</Typography>
+                  <Typography><b>Engine:</b> {car.engine}</Typography>
+                  <Typography><b>Transmission:</b> {car.transmission}</Typography>
+                  <Typography><b>Drivetrain:</b> {car.drivetrain}</Typography>
+                  <Typography><b>Fuel Type:</b> {car.fuel}</Typography>
+                  <Typography><b>Exterior Color:</b> {car.exteriorcolor}</Typography>
+                  <Typography><b>Interior Color:</b> {car.interiorcolor}</Typography>
+                  <Typography><b>Description:</b> {car.description}</Typography>
+                  <Typography><b>Price:</b> ${car.price}</Typography>
                     <Button sx={{mr:2}} variant="contained" onClick={()=>{
                     handleClose()
                   }}>Return to All Vehicles</Button>
@@ -87,24 +92,27 @@ return(
     </Card>
   </Modal>
 <h1>Cars</h1>
-<h2>Search</h2>
-<input
+<div style={{display:'flex', alignitems:"center", justifyContent:"center"}}>
+<SearchIcon size="large" style={style1}/>
+<TextField variant="filled"
+style={{backgroundColor:'white'}}
     type = "text"
     placeholder='search cars'
     value = {searchValue}
     onChange = {(event) => {setSearchValue(event.target.value)}}
 />
-{isAdmin?<Button onClick={()=>setAdd(!add)} variant="contained">Add Car</Button>:null}
+</div>
+{isAdmin?<div style={{display:'flex', alignitems:"center", justifyContent:"center"}}><Button onClick={()=>setAdd(!add)} variant="contained">Add Car</Button></div>:null}
 {!searchValue ?
-<Grid  item container xs={6} className={styles.carContainer}>
+<Grid  item container sm={12} sx={{display:"flex", flexDirection:"row",justifyContent:'center'}}>
 {cars.map((cars) => {
    
     return(
-            <Card key={cars.id} sx={style1}>
-                        <CardContent>
-                            <img src={cars.img} alt={cars.make} style={{ alignitems:"center", maxWidth: '50%', maxheight: '50%' }}/>
+            <Card sm={12} key={cars.id} style ={style1} sx={{ alignitems:"center", justifyContent:"center", objectFit:"contain", display:"flex", maxWidth:"50%" }}>
+                        <CardContent style={{width:'75%'}}>
+                            <img src={cars.img} alt={cars.make} style={{ alignitems:"center", width: '99%', maxheight: '50%' }}/>
                         </CardContent>
-                        <CardContent>
+                        <CardContent sx={{textAlign:"center",paddingTop:15}}>
                             <Typography variant="h4">{cars.make}</Typography>
                             <Typography variant="h5">{cars.model}</Typography>
                             <Typography variant="h6">Price: ${cars.price}</Typography>
@@ -118,25 +126,25 @@ return(
                                 Add To Cart
                                 <AddShoppingCartIcon/>
                             </Button>:null}
-                            {isAdmin?<Button variant="contained" onClick={()=>{
+                            {isAdmin?<Button variant="contained"sx={{mr:2, borderRadius:3}} onClick={()=>{
                                 editHandle()
                                 setCarId(cars.id)
                             }}>Edit Car</Button>:null}
-                            {isAdmin?<Button variant="contained" onClick={()=>{
+                            {isAdmin?<Button variant="contained"sx={{mr:2, borderRadius:3}} onClick={()=>{
                                 deleteCar(cars.id)
                             }}>Delete Car</Button>:null}
                             </ButtonGroup>
                         </CardContent>
             </Card>);
 })}</Grid>:
-<Grid  item container xs={6} className={styles.carContainer}>
+<Grid  item container sm={12} sx={{display:"flex", flexDirection:"row",justifyContent:'center'}}>
 {filteredCars.map((cars) => {
     return(
-            <Card key={cars.id} sx={style1}>
-                        <CardContent>
-                            <img src={cars.img} alt={cars.make} style={{ alignitems:"center", maxWidth: '50%', maxheight: '50%' }}/>
+        <Card sm={12} key={cars.id} style ={style1} sx={{ alignitems:"center", justifyContent:"center", objectFit:"contain", display:"flex", maxWidth:"50%" }}>
+                        <CardContent style={{width:'75%'}}>
+                            <img src={cars.img} alt={cars.make} style={{ alignitems:"center", width: '99%', maxheight: '50%' }}/>
                         </CardContent>
-                        <CardContent>
+                        <CardContent sx={{textAlign:"center",paddingTop:15}}>
                             <Typography variant="h4">{cars.make}</Typography>
                             <Typography variant="h5">{cars.model}</Typography>
                             <Typography variant="h6">Price: ${cars.price}</Typography>
@@ -146,15 +154,15 @@ return(
                                 handleOpen()
                                 getSingleCar(cars.id,setCar)}}
                                 >Vehicle Details</Button>
-                                {id?<Button variant="contained"sx={{mr:2, borderRadius:3}} onClick={()=>{addToCart(id,false,cars.id,1)}}>
+                               {id? <Button variant="contained"sx={{mr:2, borderRadius:3}} onClick={()=>{addToCart(id,false,cars.id,1)}}>
                                 Add To Cart
                                 <AddShoppingCartIcon/>
                             </Button>:null}
-                            {isAdmin?<Button variant="contained" onClick={()=>{
+                            {isAdmin?<Button variant="contained"sx={{mr:2, borderRadius:3}} onClick={()=>{
                                 editHandle()
                                 setCarId(cars.id)
                             }}>Edit Car</Button>:null}
-                            {isAdmin?<Button variant="contained" onClick={()=>{
+                            {isAdmin?<Button variant="contained"sx={{ml:2, borderRadius:3}} onClick={()=>{
                                 deleteCar(cars.id)
                             }}>Delete Car</Button>:null}
                             </ButtonGroup>
