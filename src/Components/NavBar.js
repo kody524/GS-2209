@@ -87,18 +87,18 @@ function sum(){
     </Box>
   </Modal></>:
       <AppBar>
-      <Toolbar>
+      <Toolbar >
           <>
             <Typography sx={{ fontSize: "2rem" }}>
               McIntire Motors
             </Typography>
           </>
             <Tabs
-              sx={{ marginLeft: "auto" }}
+              sx={{ marginLeft: "auto",color:'white' }}
             >
-              <Tab href="http://localhost:3000/" label='Home'/>
-              <Tab href="http://localhost:3000/cars" label='Cars'/>
-              {admin?<Tab href="http://localhost:3000/admin" label='Admin'/>:null}
+              <Tab sx={{color:'white'}} href="http://localhost:3000/" label='Home'/>
+              <Tab sx={{color:'white'}} href="http://localhost:3000/cars" label='Cars'/>
+              {admin?<Tab sx={{color:'white'}} href="http://localhost:3000/admin" label='Admin'/>:null}
             </Tabs>
             {id?(<>
              

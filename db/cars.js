@@ -6,7 +6,6 @@ async function createCar({
   year,
   price,
   img,
-  inventory,
   condition,
   engine,
   transmission,
@@ -98,19 +97,26 @@ async function updateCars(id, fields = {}) {
   }
 }
 
-async function deleteCars(id) {
+async function deleteCars(carId) {
   try {
-  
+    await client.query(`
+    DELETE FROM cart_items
+            WHERE vehicle_id = $1
+    `,[carId])
+  await client.query(`
+  DELETE FROM ratings
+  WHERE vehicleId=$1
+  `,[carId])
     const { rows: cars } = await client.query(
       `
           DELETE FROM cars
           WHERE id = $1
           `,
-      [id]
+      [carId]
     );
     return cars;
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 }
 module.exports = {

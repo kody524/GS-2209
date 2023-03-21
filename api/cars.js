@@ -15,7 +15,7 @@ next({name,message})
 // add to cars table
 router.post('/',async(req,res,next)=>{
     const {make,model,year,price,img,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description}=req.body;
-    console.log(description)
+    console.log(img)
     try{
 const create = await createCar({make,model,year,price,img,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description})
 if(create){
@@ -71,19 +71,14 @@ router.patch('/:carId',async(req,res,next)=>{
 //delete car by id
 router.delete('/:carId',async(req,res,next)=>{
     const {carId}=req.params;
-    const originalCar = await getCarsById(carId)
         try{
-if(!originalCar){
-    res.send({
-        name:"NoCarFound",
-        message:"No car found with that ID"
-    })
-}else{
+
     const deleteCar = await deleteCars(carId);
     res.send({
-        message:"Car deleted"
+        message:"Car deleted",
+        deleteCar
     })
-}
+
     }catch({name,message}){
         next({name,message})
     }
