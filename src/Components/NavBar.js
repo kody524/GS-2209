@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Link from '@mui/material/Link';
 import { getCart, deleteCartItem} from "../allApiCalls";
-import {AppBar, Button, Typography, IconButton, useTheme, useMediaQuery, Toolbar, Tab, Tabs,Modal,Box} from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { padding } from "@mui/system";
+import {AppBar, Button, Typography, Toolbar, Tab, Tabs,Modal,Box} from "@mui/material";
 import { Navigate } from "react-router-dom";
 import styles from './Navbar.module.css'
-import Checkout from "./Checkout";
-import { logDOM } from "@testing-library/react";
 const style = {
   position: 'absolute',
   top: '50%',

@@ -1,13 +1,9 @@
 import React, {useState,useEffect} from "react";
 import { getAllCars, getSingleCar, addToCart , deleteCar} from "../allApiCalls";
-import {Card, Grid, TextField, Typography, Button, CardContent, Dialog, Modal, CardActionArea, ButtonGroup} from "@mui/material";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {Card, Grid, TextField, Typography, Button, CardContent, Modal, ButtonGroup} from "@mui/material";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import NavBar from "./NavBar";
-import { Navigate, useParams } from "react-router-dom";
-import { borderRadius, flexbox } from "@mui/system";
-import EditCar from "./Editcar";
-import styles from './Cars.module.css'
+import { Navigate } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 const style = {
     position: 'absolute',
@@ -30,7 +26,6 @@ const style = {
   };
 export function Cars({cars, setCars, car, setCar,setCarId,loginSuccess}){
     const isAdmin = localStorage.getItem('isadmin')
-    const {carId} = useParams()
     const [searchValue, setSearchValue] = useState('')
     const [filteredCars, setFilteredCars] = useState([])
 useEffect(() => {

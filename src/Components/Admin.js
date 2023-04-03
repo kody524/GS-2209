@@ -44,16 +44,7 @@ getAllUsers(setUsers)
                             </Typography>
                         </CardContent>
                     </Card>
-                //     <div className={styles.usercontainer}>
-                //         <h2>Username:  {ele.username}</h2>
-                //         <h2>FirstName:  {ele.firstname}</h2>
-                //         <h2>LastName:  {ele.lastname}</h2>
-                //         <h2>Email:  {ele.email}</h2>
-                //         <h2>Street:  {ele.street}</h2>
-                //         <h2>City:  {ele.city}</h2>
-                //         <h2>State:  {ele.state}</h2>
-                //         <h2>Phone:  {ele.phone}</h2>
-                //  </div>
+         
                 )
             })
         }

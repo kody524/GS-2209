@@ -1,16 +1,12 @@
 import { Cars } from "./Components/Cars";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import "./App.css";
-import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SignIn } from "./Components/Login";
 import { SignUp } from "./Components/Register";
 import EditCar from "./Components/Editcar";
-import NavBar from './Components/NavBar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Login } from "@mui/icons-material";
 import Home from "./Components/Home";
-import AdminEditCar from "./Components/Admin";
 import Admin from "./Components/Admin";
 import Checkout from "./Components/Checkout";
 import AddCar from "./Components/AddCar";
