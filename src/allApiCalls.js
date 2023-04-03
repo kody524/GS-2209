@@ -99,33 +99,7 @@ setUser(data)
     console.log(e,"error getting profile")
   }
 }
- async function editUser(token,username, password, email, firstname, lastname, street, city, state, zip, phone){
-  try{
-const data = await fetch("http://localhost:8080/api/users/me",
-{
-  method:"PATCH",
-  headers:{
-    "Content-Type": "application/json",
-  },
-  body:JSON.stringify({
-    username:username,
-    password:password,
-    email:email,
-    firstname:firstname,
-    lastname:lastname,
-    street:street,
-    city:city,
-    state:state,
-    zip:zip,
-    phone:phone
-  })
-})
-const response = await data.json()
 
-  }catch(e){
-    console.log(e,"error updating info")
-  }
-}
  async function deleteUser(token){
   try{
 const response = await fetch("http://localhost:8080/api/users/me",
@@ -313,54 +287,9 @@ alert(response.message)
     console.log(e)
   }
 }
- async function updateCart(userId,date_purchased,transactioncomplete){
-  try{
-const data = await fetch(`http://localhost:8080/api/cart/${userId}`,
-{
-  method:"PATCH",
-  headers:{
-    "Content-Type": "application/json",
-  },
-  body:JSON.stringify({
-date_purchased:date_purchased,
-transactioncomplete:transactioncomplete
-  })
-})
-  }catch(e){
-    console.log(e,"error updating cart")
-  }
-}
- async function deleteCart(cartId){
-  try{
-const data = await fetch(`http://localhost:8080/api/cart/${cartId}`,
-{
-  method:"DELETE",
-  headers:{
-    "Content-Type": "application/json",
-  }
-})
-const response = await data.json();
-  }catch(e){
-    console.log(e,"error deleting cart")
-  }
-}
- async function updateCartItems(cartItemId,quantity){
-  try{
-const data = await fetch(`http://localhost:8080/api/cartitems/${cartItemId}`,
-{
-  method:"PATCH",
-  headers:{
-    "Content-Type": "application/json",
-  },
-  body:JSON.stringify({
-    quantity:quantity
-  })
-})
-const response = await data.json()
-  }catch(e){
-    console.log(e,"error updating cart items")
-  }
-}
+
+
+ 
  async function deleteCartItem(cartItemId){
   console.log(cartItemId)
   try{
@@ -382,7 +311,6 @@ module.exports={
   register,
   login,
   getMe,
-  editUser,
   deleteUser,
   getAllCars,
   getSingleCar,
@@ -392,8 +320,5 @@ addToCart,
 editCar,
 deleteCar,
 getCart,
-updateCart,
-deleteCart,
-updateCartItems,
 deleteCartItem
 }

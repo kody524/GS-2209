@@ -1,4 +1,4 @@
-const dotenv = require("dotenv").config();
+
 const PORT = 8080;
 const express = require("express");
 const morgan = require("morgan");

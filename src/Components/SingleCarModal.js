@@ -1,9 +1,7 @@
 import React, {useState,useEffect} from "react";
-import { getAllCars, getSingleCar } from "../allApiCalls";
-import {Card, Grid, Typography, Button, CardContent, Dialog, Modal} from "@mui/material";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { getAllCars } from "../allApiCalls";
+import {Card, Grid, Typography, CardContent} from "@mui/material";
 import NavBar from "./NavBar";
-import SingleCarModal from "./SingleCarModal";
 export function Cars({cars, setCars}){
 useEffect(() => {
     getAllCars(setCars).then((cars) => {console.log(cars)

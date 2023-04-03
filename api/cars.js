@@ -51,7 +51,7 @@ router.get('/:carId',async(req,res,next)=>{
 //edit car by id
 router.patch('/:carId',async(req,res,next)=>{
     const { carId }=req.params;
-    const {make,model,year,price,inventory,condition,engine,transmission,drivetrain,fuel,exteriorcolor,interiorcolor,description}=req.body;
+
     console.log(req.body)
     try{
     const originalCar = await getCarsById(carId);
