@@ -1,6 +1,6 @@
 
 
-  async function register (username,password,email,firstname,lastname,street,city,state,zip,phone,setSuccess){
+  export async function register (username,password,email,firstname,lastname,street,city,state,zip,phone,setSuccess){
 try{
 const response = await fetch('http://localhost:8080/api/users/register',{
   method:"POST",
@@ -30,7 +30,7 @@ setSuccess(true)
   console.log(e,"register error")
 }
 }
-async function getAllUsers(setUsers){
+export async function getAllUsers(setUsers){
   try{
 const response = await fetch(`http://localhost:8080/api/users`,
 {
@@ -46,7 +46,7 @@ const response = await fetch(`http://localhost:8080/api/users`,
   }
 }
 
- async function login(username,password,setLoginSuccess,setToken,setUserId){
+ export async function login(username,password,setLoginSuccess,setToken,setUserId){
   try{
 const response = await fetch("http://localhost:8080/api/users/login",
 {
@@ -83,7 +83,7 @@ if (json.message === "Successful Login") {
 }
 
 
- async function getMe(token,setUser){
+ export async function getMe(token,setUser){
   try{
 const response = await fetch('http://localhost:8080/api/users/me',
 {
@@ -100,7 +100,7 @@ setUser(data)
   }
 }
 
- async function deleteUser(token){
+export async function deleteUser(token){
   try{
 const response = await fetch("http://localhost:8080/api/users/me",
 {
@@ -116,7 +116,7 @@ alert(data.message)
     console.log(e,"error deleting profile")
   }
 }
- async function getAllCars(setCars){
+ export async function getAllCars(setCars){
   try{
     const response = await fetch("http://localhost:8080/api/cars",
     {
@@ -133,7 +133,7 @@ alert(data.message)
       console.log(error,"error getting cars")
   }
 }
- async function getSingleCar(carId,setCar){
+export async function getSingleCar(carId,setCar){
   try{
 const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
 {
@@ -147,7 +147,7 @@ setCar(response)
     console.log(e,"error getting car")
   }
 }
- async function addCar(  make,
+export async function addCar(  make,
   model,
   year,
   price,
@@ -189,7 +189,7 @@ alert(response.message)
     console.log(e,"error creating car")
   }
 }
- async function editCar(carId,make,
+export async function editCar(carId,make,
   model,
   year,
   price,
@@ -233,7 +233,7 @@ alert(response.message)
     console.log(e,"error updating car ")
   }
 }
- async function deleteCar(carId){
+export async function deleteCar(carId){
   try{
 const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
 {
@@ -248,7 +248,7 @@ alert(response.message)
     console.log(e,"error deleting car")
   }
 }
- async function getCart(userId,setCart){
+export async function getCart(userId,setCart){
 try{
 const data = await fetch(`http://localhost:8080/api/cartitems/${userId}`,
 {
@@ -265,7 +265,7 @@ setCart(response)
   console.log(e,"error getting cart")
 }
 }
-async function addToCart(user_id,transactioncomplete,vehicle_id,quantity){
+export async function addToCart(user_id,transactioncomplete,vehicle_id,quantity){
   console.log(user_id,vehicle_id,quantity,transactioncomplete)
   try{
 const data = await fetch(`http://localhost:8080/api/cart`,{
@@ -290,7 +290,7 @@ alert(response.message)
 
 
  
- async function deleteCartItem(cartItemId){
+export async function deleteCartItem(cartItemId){
   console.log(cartItemId)
   try{
 const data = await fetch(`http://localhost:8080/api/cartitems/${cartItemId}`,
@@ -307,18 +307,3 @@ alert(response.message)
   }
 }
 
-module.exports={
-  register,
-  login,
-  getMe,
-  deleteUser,
-  getAllCars,
-  getSingleCar,
-  getAllUsers,
-addCar,
-addToCart,
-editCar,
-deleteCar,
-getCart,
-deleteCartItem
-}
