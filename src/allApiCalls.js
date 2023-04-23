@@ -147,7 +147,7 @@ setCar(response)
     console.log(e,"error getting car")
   }
 }
- async function addCar(  make,
+ export async function addCar(  make,
   model,
   year,
   price,
