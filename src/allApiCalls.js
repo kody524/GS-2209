@@ -2,7 +2,7 @@
 
 export async function register (username,password,email,firstname,lastname,street,city,state,zip,phone,setSuccess){
 try{
-const response = await fetch('http://localhost:8080/api/users/register',{
+const response = await fetch('https://a-8g40.onrender.com//api/users/register',{
   method:"POST",
   headers:{
     "Content-Type": "application/json",
@@ -32,7 +32,7 @@ setSuccess(true)
 }
 export async function getAllUsers(setUsers){
   try{
-const response = await fetch(`http://localhost:8080/api/users`,
+const response = await fetch(`https://a-8g40.onrender.com//api/users`,
 {
   headers:{
     "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const response = await fetch(`http://localhost:8080/api/users`,
 
 export  async function login(username,password,setLoginSuccess,setToken,setUserId){
   try{
-const response = await fetch("http://localhost:8080/api/users/login",
+const response = await fetch("https://a-8g40.onrender.com//api/users/login",
 {
   method:"POST",
   headers:{
@@ -85,7 +85,7 @@ if (json.message === "Successful Login") {
 
 export  async function getMe(token,setUser){
   try{
-const response = await fetch('http://localhost:8080/api/users/me',
+const response = await fetch('https://a-8g40.onrender.com//api/users/me',
 {
   headers:{
     "Content-Type": "application/json",
@@ -102,7 +102,7 @@ setUser(data)
 
 export async function deleteUser(token){
   try{
-const response = await fetch("http://localhost:8080/api/users/me",
+const response = await fetch("https://a-8g40.onrender.com//api/users/me",
 {
   method:"DELETE",
   headers:{
@@ -118,7 +118,7 @@ alert(data.message)
 }
 export  async function getAllCars(setCars){
   try{
-    const response = await fetch("http://localhost:8080/api/cars",
+    const response = await fetch("https://a-8g40.onrender.com//api/cars",
     {
       headers:{
           "Content-Type": "application/json",
@@ -135,7 +135,7 @@ export  async function getAllCars(setCars){
 }
 export async function getSingleCar(carId,setCar){
   try{
-const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
+const data = await fetch(`https://a-8g40.onrender.com//api/cars/${carId}`,
 {
   headers:{
     "Content-Type": "application/json",
@@ -161,7 +161,7 @@ export default async function addCar(  make,
   interiorcolor,
   description,){
   try{
-const data = await fetch("http://localhost:8080/api/cars",
+const data = await fetch("https://a-8g40.onrender.com//api/cars",
 {
   method:"POST",
   headers:{
@@ -203,7 +203,7 @@ export async function editCar(carId,make,
   interiorcolor,
   description){
   try{
-const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
+const data = await fetch(`https://a-8g40.onrender.com//api/cars/${carId}`,
 {
   method:"PATCH",
   headers:{
@@ -235,7 +235,7 @@ alert(response.message)
 }
 export async function deleteCar(carId){
   try{
-const data = await fetch(`http://localhost:8080/api/cars/${carId}`,
+const data = await fetch(`https://a-8g40.onrender.com//api/cars/${carId}`,
 {
   method:"DELETE",
   headers:{
@@ -250,7 +250,7 @@ alert(response.message)
 }
 export async function getCart(userId,setCart){
 try{
-const data = await fetch(`http://localhost:8080/api/cartitems/${userId}`,
+const data = await fetch(`https://a-8g40.onrender.com//api/cartitems/${userId}`,
 {
   headers:{
     "Content-Type": "application/json",
@@ -268,7 +268,7 @@ setCart(response)
 export async function addToCart(user_id,transactioncomplete,vehicle_id,quantity){
   console.log(user_id,vehicle_id,quantity,transactioncomplete)
   try{
-const data = await fetch(`http://localhost:8080/api/cart`,{
+const data = await fetch(`https://a-8g40.onrender.com//api/cart`,{
   method:"POST",
   headers:{
    
@@ -293,7 +293,7 @@ alert(response.message)
 export async function deleteCartItem(cartItemId){
   console.log(cartItemId)
   try{
-const data = await fetch(`http://localhost:8080/api/cartitems/${cartItemId}`,
+const data = await fetch(`https://a-8g40.onrender.com//api/cartitems/${cartItemId}`,
 {
   method:"DELETE",
   headers:{
