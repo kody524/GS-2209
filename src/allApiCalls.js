@@ -1,6 +1,6 @@
 
 
-  export async function register (username,password,email,firstname,lastname,street,city,state,zip,phone,setSuccess){
+export async function register (username,password,email,firstname,lastname,street,city,state,zip,phone,setSuccess){
 try{
 const response = await fetch('http://localhost:8080/api/users/register',{
   method:"POST",
@@ -46,7 +46,7 @@ const response = await fetch(`http://localhost:8080/api/users`,
   }
 }
 
- export async function login(username,password,setLoginSuccess,setToken,setUserId){
+export  async function login(username,password,setLoginSuccess,setToken,setUserId){
   try{
 const response = await fetch("http://localhost:8080/api/users/login",
 {
@@ -83,7 +83,7 @@ if (json.message === "Successful Login") {
 }
 
 
- export async function getMe(token,setUser){
+export  async function getMe(token,setUser){
   try{
 const response = await fetch('http://localhost:8080/api/users/me',
 {
@@ -116,7 +116,7 @@ alert(data.message)
     console.log(e,"error deleting profile")
   }
 }
- export async function getAllCars(setCars){
+export  async function getAllCars(setCars){
   try{
     const response = await fetch("http://localhost:8080/api/cars",
     {
@@ -147,7 +147,7 @@ setCar(response)
     console.log(e,"error getting car")
   }
 }
-export async function addCar(  make,
+export default async function addCar(  make,
   model,
   year,
   price,
@@ -306,4 +306,7 @@ alert(response.message)
     console.log(e,"error deleting cart item")
   }
 }
+
+
+
 
